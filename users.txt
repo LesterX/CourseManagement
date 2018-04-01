@@ -1,0 +1,7 @@
+ckent1 isthatbird Clark Kent 000001 Admin
+bwayne1 iambatman Bruce Wayne 000002 Admin
+dprince3 isshewithyou Diana Prince 000003 Instructor
+ballen2 runbarryrun Barry Allen 000004 Student
+hjordan2 bewaremypower Hal Jordan 000005 Student
+vstone1 booyah! Victor Stone 000006 Student
+acurry yousuck Arthur Curry 000007 Student
