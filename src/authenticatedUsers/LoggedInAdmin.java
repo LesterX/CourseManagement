@@ -1,5 +1,5 @@
 package authenticatedUsers;
-
+//adfafsds
 import authenticationServer.AuthenticationToken;
 
 public class LoggedInAdmin implements LoggedInAuthenticatedUser {
