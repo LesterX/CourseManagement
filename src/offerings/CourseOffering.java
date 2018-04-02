@@ -3,6 +3,7 @@ package offerings;
 import java.util.List;
 import java.util.Map;
 
+import authenticatedUsers.LoggedInInstructor;
 import customDatatypes.EvaluationTypes;
 import customDatatypes.Marks;
 import customDatatypes.Weights;
@@ -84,7 +85,7 @@ public class CourseOffering implements ICourseOffering{
 	public void removeInstructor(InstructorModel instructor){
 		this.instructor.remove(instructor);
 	}
-	
+
 //	Calculates the Final Grades using the Weights and Marks utility classes see the comments in 
 //	these classes if unsure of how this works
 	public void calculateFinalGrades(){
@@ -118,5 +119,6 @@ public class CourseOffering implements ICourseOffering{
 			finalGrade += weights.getCurrentValue() * marks.getValueWithKey(weights.getCurrentKey());
 		}
 	}
+
 	
 }
