@@ -1,4 +1,10 @@
-/operation.class
-/login.class
+/authenticatedUsers/
+/authenticationServer/
+/customDatatypes/
+/loggedInUserFactory/
+/offerings/
 /operations/
+/registrar/
+/systemUserModelFactories/
+/systemUsers/
 /testHarness/
