@@ -9,6 +9,7 @@ import java.util.Map;
 
 
 import customDatatypes.Marks;
+import customDatatypes.Weights;
 import offerings.CourseOffering;
 import offerings.ICourseOffering;
 
@@ -86,7 +87,35 @@ public class InstructorModel implements IInstructorModel {
 		}
 
 	}
-	
-	
-	
+
+	public void calculateFinalGrade(CourseOffering course, String ID){
+		StudentModel target = null;
+		Double finalGrade;
+		for(StudentModel studentModel : course.getStudentsEnrolled())
+			if (studentModel.getID().equals(ID))
+				target = studentModel;
+		finalGrade = 0D;
+		Weights weights = course.getEvaluationStrategies().get(target.getEvaluationEntities().get(course));
+		Marks marks  = target.getPerCourseMarks().get(course);
+		weights.initializeIterator();
+		while(weights.hasNext()){
+			weights.next();
+			finalGrade += weights.getCurrentValue() * marks.getValueWithKey(weights.getCurrentKey());
+		}
+	}
+	public void printRecord(CourseOffering course){
+		if (isTutorOf.contains(course)){
+			System.out.println("ID : " + course.getCourseID() + "\nCourse name : " + course.getCourseName() + "\nSemester : " +
+					course.getSemester());
+			System.out.println("Students allowed to enroll\n");
+			for(StudentModel student : course.getStudentsEnrolled()){
+				System.out.println("Student name : " + student.getName() + "\nStudent surname : " + student.getSurname() +
+						"\nStudent ID : " + student.getID() + "\nStudent EvaluationType : " +
+						student.getEvaluationEntities().get(course) + "\n\n");
+			}
+		}
+		else{
+			System.exit(0);
+		}
+	}
 }
