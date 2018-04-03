@@ -45,11 +45,12 @@ public class Enroll
 			{
 				course.getStudentsEnrolled().add(student);
 				student.getCoursesEnrolled().add(course);
+				ModelRegister.getInstance().registerCourse(student.getID(), course);
 			}
 		}
 	}
 	
-	// Override the method with another parameter courseID
+	// Overload the method with another parameter courseID
 	public void execute(LoggedInAuthenticatedUser user, String courseID) 
 	{
 		if (!user.getAuthenticationToken().getUserType().equals("Student"))
@@ -80,6 +81,7 @@ public class Enroll
 			{
 				course.getStudentsEnrolled().add(student);
 				student.getCoursesEnrolled().add(course);
+				ModelRegister.getInstance().registerCourse(student.getID(), course);
 			}
 		}
 	}
