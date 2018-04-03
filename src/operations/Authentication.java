@@ -3,70 +3,57 @@ package operations;
 import authenticatedUsers.LoggedInAuthenticatedUser;
 import systemUsers.SystemUserModel;
 import registrar.ModelRegister;
-import loggedInUserFactory.LoggedInUserFactory;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.FileNotFoundException;
-import java.io.BufferedReader;;
+import java.io.BufferedReader;
+import authenticatedUsers.LoggedInAdmin;
+import authenticatedUsers.LoggedInInstructor;
+import authenticatedUsers.LoggedInStudent;
 
 public class Authentication 
 {
-	public LoggedInAuthenticatedUser execute(String first_name, String surname, String ID) throws FileNotFoundException
+	public LoggedInAuthenticatedUser execute(String first_name, String surname, String ID) throws IOException
 	{
-		LoggedInAuthenticatedUser user;
 		SystemUserModel registered_user = ModelRegister.getInstance().getRegisteredUser(ID);
 		if (registered_user.getName().equals(first_name) && registered_user.getSurname().equals(surname) && registered_user.getID().equals(ID))
 		{
-			user = new LoggedInUserFactory().createAuthenticatedUser() //TODO: need a parameter of AuthenticationToken
-		}
-		
-		
-		/**
-		String[] usernames = new String[1000];
-		String[] passwords = new String[1000];
-		String[] firstnames = new String[1000];
-		String[] surnames = new String[1000];
-		int[] ID = new int[1000];
-		String[] user_types = new String[1000];
-		
-		int num = 0;
-		
-		try
-		{
-			BufferedReader br = new BufferedReader(new FileReader("users.txt"));
-			String line = br.readLine();
-			while (line != null)
+			//TODO: create user.txt
+			String type = get_user_type("users.txt",ID);
+			switch (type)
 			{
-				String[] parts = line.split(" ");
-				usernames[num] = parts[0];
-				passwords[num] = parts[1];
-				firstnames[num] = parts[2];
-				surnames[num] = parts[3];
-				ID[num] = Integer.parseInt(parts[4]);
-				user_types[num] = parts[5];
-				num++;
-				line = br.readLine();
-			}
-		}catch (IOException e) {
-			System.out.println("IO Exception");
-		}
-		
-		for (int i = 0; i < num; i ++)
-		{
-			if (usernames[i].equals(username) && passwords[i].equals(password))
-			{
-				System.out.println("Name: " + firstnames[i] + " " + surnames[i] + " " + ID[i]);
-				if (user_types[i].equals("Admin")) {user = new LoggedInAdmin();}
-				else if (user_types[i].equals("Instructor")) {user = new LoggedInInstructor();}
-				else {user = new LoggedInStudent();}
-				
-				return user;
-			}else if (i == num - 1)
-			{
-				System.out.println("Invalid username or ID");
+				case "N/A":
+					return null;
+				case "Admin":
+					return new LoggedInAdmin();
+				case "Instructor":
+					return new LoggedInInstructor();
+				case "Student":
+					return new LoggedInStudent();
+				default:
+					return null;
 			}
 		}
-		*/
 		return null;
+	}
+	
+	private static String get_user_type(String user_file, String ID) throws IOException
+	{
+		BufferedReader br = new BufferedReader(new FileReader(user_file));
+		String line = br.readLine();
+		String type = "N/A";
+		
+		while (line != null)
+		{
+			if (line.split(" ")[2].equals(ID))
+			{
+				type = line.split(" ")[3];
+				br.close();
+				return type;
+			}
+			line = br.readLine();
+		}
+		
+		br.close();
+		return type;
 	}
 }

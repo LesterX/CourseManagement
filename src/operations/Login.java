@@ -16,13 +16,14 @@ public class Login
 		System.out.println("Enter your ID:");
 		String ID = scanner.nextLine();
 		
-		Authentication aut = new Authentication();
-		try
-		{
-			LoggedInAuthenticatedUser user = aut.execute(first_name, surname, ID);
-			return user;
-		}catch (IOException e) {System.out.println("IO Exception");}
+		scanner.close();
 		
-		return null;
+		Authentication aut = new Authentication();
+		LoggedInAuthenticatedUser user = aut.execute(first_name, surname, ID);
+		
+		if (user == null)
+			System.out.println("User not found");
+		
+		return user;
 	}
 }
