@@ -86,6 +86,39 @@ public class Enroll
 		}
 	}
 	
+	public void execute(LoggedInAuthenticatedUser user, CourseOffering course) 
+	{
+		if (!user.getAuthenticationToken().getUserType().equals("Student"))
+		{	
+			System.out.println("Only student can enroll");
+			return;
+		}
+		else
+		{
+			user = (LoggedInStudent) user;
+			StudentModel student = (StudentModel) ModelRegister.getInstance().getRegisteredUser(user.getID());
+			
+			if (course == null)
+			{
+				System.out.println("Course not found");
+				return;
+			}else if (!found_in_list(student, course.getStudentsAllowedToEnroll()))
+			{
+				System.out.println("You are not allowed to enroll this course");
+				return;
+			}else if (found_in_list(student, course.getStudentsEnrolled()))
+			{
+				System.out.println("You are already enrolled in this course");
+				return;
+			}else
+			{
+				course.getStudentsEnrolled().add(student);
+				student.getCoursesEnrolled().add(course);
+				ModelRegister.getInstance().registerCourse(student.getID(), course);
+			}
+		}
+	}
+	
 	private static boolean found_in_list(StudentModel s, List<StudentModel> l)
 	{
 		for (StudentModel e : l)

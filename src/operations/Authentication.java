@@ -9,9 +9,12 @@ import java.io.BufferedReader;
 import authenticatedUsers.LoggedInAdmin;
 import authenticatedUsers.LoggedInInstructor;
 import authenticatedUsers.LoggedInStudent;
+import authenticationServer.AuthenticationToken;
 
 public class Authentication 
 {
+	public Authentication(){}
+	
 	public LoggedInAuthenticatedUser execute(String first_name, String surname, String ID) throws IOException
 	{
 		SystemUserModel registered_user = ModelRegister.getInstance().getRegisteredUser(ID);
@@ -24,11 +27,29 @@ public class Authentication
 				case "N/A":
 					return null;
 				case "Admin":
-					return new LoggedInAdmin();
+				{	
+					LoggedInAdmin user = new LoggedInAdmin();
+					AuthenticationToken token = new AuthenticationToken();
+					token.setUserType("Admin");
+					user.setAuthenticationToken(token);
+					return user;
+				}
 				case "Instructor":
-					return new LoggedInInstructor();
+				{
+					LoggedInInstructor user = new LoggedInInstructor();
+					AuthenticationToken token = new AuthenticationToken();
+					token.setUserType("Instructor");
+					user.setAuthenticationToken(token);
+					return user;
+				}
 				case "Student":
-					return new LoggedInStudent();
+				{
+					LoggedInStudent user = new LoggedInStudent();
+					AuthenticationToken token = new AuthenticationToken();
+					token.setUserType("Student");
+					user.setAuthenticationToken(token);
+					return user;
+				}
 				default:
 					return null;
 			}

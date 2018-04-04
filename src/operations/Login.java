@@ -6,6 +6,8 @@ import java.util.Scanner;
 
 public class Login
 {
+	public Login(){}
+	
 	public LoggedInAuthenticatedUser execute() throws IOException
 	{
 		Scanner scanner = new Scanner(System.in);
