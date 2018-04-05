@@ -1,15 +1,12 @@
 package operations;
 
 import authenticatedUsers.LoggedInAuthenticatedUser;
-import systemUsers.SystemUserModel;
-import registrar.ModelRegister;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.BufferedReader;
 import authenticatedUsers.LoggedInAdmin;
 import authenticatedUsers.LoggedInInstructor;
 import authenticatedUsers.LoggedInStudent;
 import authenticationServer.AuthenticationToken;
+import others.GenerateUsers;
 
 public class Authentication 
 {
@@ -17,64 +14,39 @@ public class Authentication
 	
 	public LoggedInAuthenticatedUser execute(String first_name, String surname, String ID) throws IOException
 	{
-		SystemUserModel registered_user = ModelRegister.getInstance().getRegisteredUser(ID);
-		if (registered_user.getName().equals(first_name) && registered_user.getSurname().equals(surname) && registered_user.getID().equals(ID))
-		{
-			//TODO: create user.txt
-			String type = get_user_type("users.txt",ID);
-			switch (type)
-			{
-				case "N/A":
-					return null;
-				case "Admin":
-				{	
-					LoggedInAdmin user = new LoggedInAdmin();
-					AuthenticationToken token = new AuthenticationToken();
-					token.setUserType("Admin");
-					user.setAuthenticationToken(token);
-					return user;
-				}
-				case "Instructor":
-				{
-					LoggedInInstructor user = new LoggedInInstructor();
-					AuthenticationToken token = new AuthenticationToken();
-					token.setUserType("Instructor");
-					user.setAuthenticationToken(token);
-					return user;
-				}
-				case "Student":
-				{
-					LoggedInStudent user = new LoggedInStudent();
-					AuthenticationToken token = new AuthenticationToken();
-					token.setUserType("Student");
-					user.setAuthenticationToken(token);
-					return user;
-				}
-				default:
-					return null;
-			}
-		}
-		return null;
-	}
-	
-	private static String get_user_type(String user_file, String ID) throws IOException
-	{
-		BufferedReader br = new BufferedReader(new FileReader(user_file));
-		String line = br.readLine();
-		String type = "N/A";
+		GenerateUsers users = new GenerateUsers();
+		String type = users.validate(first_name, surname, ID);
+		if (type == null)
+			return null;
 		
-		while (line != null)
+		switch (type)
 		{
-			if (line.split(" ")[2].equals(ID))
-			{
-				type = line.split(" ")[3];
-				br.close();
-				return type;
+			case "Admin":
+			{	
+				LoggedInAdmin user = new LoggedInAdmin();
+				AuthenticationToken token = new AuthenticationToken();
+				token.setUserType("Admin");
+				user.setAuthenticationToken(token);
+				return user;
 			}
-			line = br.readLine();
+			case "Instructor":
+			{
+				LoggedInInstructor user = new LoggedInInstructor();
+				AuthenticationToken token = new AuthenticationToken();
+				token.setUserType("Instructor");
+				user.setAuthenticationToken(token);
+				return user;
+			}
+			case "Student":
+			{
+				LoggedInStudent user = new LoggedInStudent();
+				AuthenticationToken token = new AuthenticationToken();
+				token.setUserType("Student");
+				user.setAuthenticationToken(token);
+				return user;
+			}
+			default:
+				return null;
 		}
-		
-		br.close();
-		return type;
 	}
 }
