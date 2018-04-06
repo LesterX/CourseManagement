@@ -5,6 +5,12 @@ public class AdminModel implements IAdminModel{
 	private String name;
 	private String surname;
 	private String ID;
+	private String type = "Admin";
+	
+	public String get_type()
+	{
+		return type;
+	}
 	
 	public String getName() {
 		return name;

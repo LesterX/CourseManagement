@@ -51,8 +51,6 @@ public class Enroll
 				student.getCoursesEnrolled().add(course);
 				ModelRegister.getInstance().registerCourse(student.getID(), course);
 			}
-			
-			br.close();
 		}
 	}
 	
@@ -103,6 +101,8 @@ public class Enroll
 		{
 			user = (LoggedInStudent) user;
 			StudentModel student = (StudentModel) ModelRegister.getInstance().getRegisteredUser(user.getID());
+			
+			System.out.println(student.getName());
 			
 			if (course == null)
 			{

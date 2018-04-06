@@ -8,26 +8,16 @@ import java.io.IOException;
 import offerings.CourseOffering;
 import offerings.ICourseOffering;
 import offerings.OfferingFactory;
-import operations.Enroll;
-import operations.Login;
+import operations.*;
 import registrar.ModelRegister;
 import systemUsers.StudentModel;
-import others.GenerateUsers;
 import authenticatedUsers.LoggedInAuthenticatedUser;
 
 public class TestStudentModelFactory_1 {
 
-//	public static void main(String[] args) throws IOException{
-//		// TODO Auto-generated method stub
-//		SystemUserModelFactory factory = new StudentModelFactory();
-//		BufferedReader br = new BufferedReader(new FileReader(new File("note_1.txt")));
-//		factory.createSystemUserModel(br, null);
-//	}
-
 	public static void main(String[] args) throws IOException{
-		GenerateUsers.generate_users("users.txt");
-		GenerateUsers.generate_users("note_1.txt", "users.txt");
-		GenerateUsers.generate_users("note_2.txt", "users.txt");
+		//GenerateUsers.generate_users("note_1.txt");
+		//GenerateUsers.generate_users("note_2.txt");
 		
 //		Create an instance of an OfferingFactory
 		OfferingFactory factory = new OfferingFactory();
@@ -54,12 +44,13 @@ public class TestStudentModelFactory_1 {
 			
 			for(StudentModel student : course.getStudentsAllowedToEnroll()){
 				for(ICourseOffering course2 : student.getCoursesAllowed())
-				System.out.println(student.getName() + "\t\t -> " + course2.getCourseName());
+				System.out.println(student.getName() + "\t\t -> " + course2.getCourseName());	
 			}
 		}
 		
 		LoggedInAuthenticatedUser user = Login.execute();
 		Enroll.execute(user);
-		
+		PrintCoursesEnrolled.execute(user);
+		SetNotifPref.execute(user);
 	}
 }

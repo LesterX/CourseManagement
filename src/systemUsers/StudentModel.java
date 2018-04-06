@@ -1,5 +1,6 @@
 package systemUsers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,8 @@ import offerings.ICourseOffering;
 
 public class StudentModel implements IStudentModel{
 	
+	private String type = "Student";
+	private String eva_type;
 	private String name;
 	private String surname;
 	private String ID;
@@ -20,6 +23,21 @@ public class StudentModel implements IStudentModel{
 //	the student has enrolled in.
 	private Map<ICourseOffering, Marks> perCourseMarks;
 	private NotificationTypes notificationType;
+	
+	public String get_type()
+	{
+		return type;
+	}
+	
+	public String get_eva_type()
+	{
+		return eva_type;
+	}
+	
+	public void set_eva_type(String et)
+	{
+		eva_type = et; 
+	}
 	
 	public String getName() {
 		return name;
@@ -46,6 +64,8 @@ public class StudentModel implements IStudentModel{
 	}
 	
 	public List<ICourseOffering> getCoursesAllowed() {
+		if (coursesAllowed == null)
+			coursesAllowed = new ArrayList<ICourseOffering>();
 		return coursesAllowed;
 	}
 	
@@ -54,6 +74,8 @@ public class StudentModel implements IStudentModel{
 	}
 	
 	public List<ICourseOffering> getCoursesEnrolled() {
+		if (coursesEnrolled == null)
+			coursesEnrolled = new ArrayList<ICourseOffering>();
 		return coursesEnrolled;
 	}
 	

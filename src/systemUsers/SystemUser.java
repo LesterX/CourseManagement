@@ -9,5 +9,6 @@ public interface SystemUser{
 	String getName();
 	String getSurname();
 	String getID();
+	String get_type();
 	
 }

@@ -6,7 +6,8 @@ import authenticatedUsers.LoggedInAdmin;
 import authenticatedUsers.LoggedInInstructor;
 import authenticatedUsers.LoggedInStudent;
 import authenticationServer.AuthenticationToken;
-import others.GenerateUsers;
+import systemUsers.SystemUserModel;
+import registrar.ModelRegister;
 
 public class Authentication 
 {
@@ -14,12 +15,13 @@ public class Authentication
 	
 	public static LoggedInAuthenticatedUser execute(String first_name, String surname, String ID) throws IOException
 	{
-		GenerateUsers users = new GenerateUsers();
-		String type = users.validate(first_name, surname, ID);
-		if (type == null)
+		SystemUserModel user_registered = ModelRegister.getInstance().getRegisteredUser(ID);
+		
+		
+		if (user_registered == null)
 			return null;
 		
-		switch (type)
+		switch (user_registered.get_type())
 		{
 			case "Admin":
 			{	

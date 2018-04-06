@@ -10,7 +10,7 @@ public class SetNotifPref
 {
 	public SetNotifPref(){}
 	
-	public void execute(LoggedInAuthenticatedUser user, NotificationTypes np)
+	public static void execute(LoggedInAuthenticatedUser user, NotificationTypes np)
 	{
 		if (!user.getAuthenticationToken().getUserType().equals("Student"))
 		{	
@@ -23,7 +23,7 @@ public class SetNotifPref
 		student.setNotificationType(np);
 	}
 	
-	public void execute(LoggedInAuthenticatedUser user, String np_string)
+	public static void execute(LoggedInAuthenticatedUser user, String np_string)
 	{
 		NotificationTypes np;
 		if (!user.getAuthenticationToken().getUserType().equals("Student"))
@@ -49,7 +49,7 @@ public class SetNotifPref
 		student.setNotificationType(np);
 	}
 	
-	public void execute(LoggedInAuthenticatedUser user)
+	public static void execute(LoggedInAuthenticatedUser user)
 	{
 		if (!user.getAuthenticationToken().getUserType().equals("Student"))
 		{	
@@ -64,7 +64,6 @@ public class SetNotifPref
 		System.out.println("Enter the index of the notification type you prefer: ");
 		System.out.println("1. Email	2. Cellphone	3. Pigeon Post (really?)");
 		int choice = scanner.nextInt();
-		scanner.close();
 		
 		switch (choice)
 		{

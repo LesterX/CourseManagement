@@ -1,12 +1,6 @@
-/authenticatedUsers/
-/authenticationServer/
-/customDatatypes/
-/loggedInUserFactory/
-/offerings/
-/operations/
-/registrar/
-/systemUserModelFactories/
 /systemUsers/
-/testHarness/
-/GenerateUsers.class
 /others/
+/testHarness/
+/operations/
+/authenticatedUsers/
+/systemUserModelFactories/

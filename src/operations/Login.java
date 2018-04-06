@@ -23,7 +23,12 @@ public class Login
 		
 		if (user == null)
 			System.out.println("User not found");
+		else
+			System.out.println("Logged In");
 		
+		user.setID(ID);
+		user.setName(first_name);
+		user.setSurname(surname);
 		return user;
 	}
 }

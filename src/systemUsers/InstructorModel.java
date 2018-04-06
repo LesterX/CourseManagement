@@ -14,13 +14,18 @@ import offerings.CourseOffering;
 import offerings.ICourseOffering;
 
 public class InstructorModel implements IInstructorModel {
-
+	private String type = "Instructor";
 	private String name;
 	private String surname;
 	private String ID;
 	private List<ICourseOffering> isTutorOf;
 	
 	public InstructorModel(){
+	}
+	
+	public String get_type()
+	{
+		return type;
 	}
 	
 	public String getName() {

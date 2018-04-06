@@ -11,7 +11,7 @@ public class PrintRecord
 {
 	public PrintRecord(){}
 	
-	public void execute(LoggedInAuthenticatedUser user)
+	public static void execute(LoggedInAuthenticatedUser user)
 	{
 		if (!user.getAuthenticationToken().getUserType().equals("Student"))
 		{	
@@ -45,7 +45,7 @@ public class PrintRecord
 		}
 	}
 	
-	public void execute(LoggedInAuthenticatedUser user, CourseOffering course)
+	public static void execute(LoggedInAuthenticatedUser user, CourseOffering course)
 	{
 		if (!user.getAuthenticationToken().getUserType().equals("Student"))
 		{	
@@ -77,7 +77,7 @@ public class PrintRecord
 	{
 		if (!user.getAuthenticationToken().getUserType().equals("Student"))
 		{	
-			System.out.println("Only student can enroll");
+			System.out.println("Only student can print records");
 			return;
 		}
 		
