@@ -9,6 +9,11 @@ public class LoggedInInstructor implements LoggedInAuthenticatedUser {
 	private String ID;
 	private AuthenticationToken authenticationToken;
 	
+	public String get_type()
+	{
+		return "Instructor";
+	}
+	
 	public String getName() {
 		return name;
 	}

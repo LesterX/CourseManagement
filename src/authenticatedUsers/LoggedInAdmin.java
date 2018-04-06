@@ -1,5 +1,4 @@
 package authenticatedUsers;
-//adfafsds
 import authenticationServer.AuthenticationToken;
 
 public class LoggedInAdmin implements LoggedInAuthenticatedUser {
@@ -8,6 +7,11 @@ public class LoggedInAdmin implements LoggedInAuthenticatedUser {
 	private String surname;
 	private String ID;
 	private AuthenticationToken authenticationToken;
+	
+	public String get_type()
+	{
+		return "Admin";
+	}
 	
 	public String getName() {
 		return name;

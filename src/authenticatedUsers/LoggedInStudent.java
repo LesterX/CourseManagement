@@ -9,6 +9,11 @@ public class LoggedInStudent implements LoggedInAuthenticatedUser {
 	private String ID;
 	private AuthenticationToken authenticationToken;
 	
+	public String get_type()
+	{
+		return "Student";
+	}
+	
 	public String getName() {
 		return name;
 	}
