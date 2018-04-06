@@ -22,7 +22,6 @@ public class PrintRecord
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Enter the course ID: ");
 		String course_id = scanner.nextLine();
-		scanner.close();
 		
 		CourseOffering course = ModelRegister.getInstance().getRegisteredCourse(course_id);
 		StudentModel student = (StudentModel) ModelRegister.getInstance().getRegisteredUser(user.getID());
@@ -30,6 +29,11 @@ public class PrintRecord
 		if (course == null)
 		{
 			System.out.println("Course not found");
+			return;
+		}
+		if (student.getPerCourseMarks() == null)
+		{
+			System.out.println("No marks available");
 			return;
 		}
 		

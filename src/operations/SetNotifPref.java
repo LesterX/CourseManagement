@@ -4,6 +4,10 @@ import authenticatedUsers.LoggedInAuthenticatedUser;
 import systemUsers.StudentModel;
 import registrar.ModelRegister;
 import customDatatypes.NotificationTypes;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Scanner;
 
 public class SetNotifPref 
@@ -49,7 +53,7 @@ public class SetNotifPref
 		student.setNotificationType(np);
 	}
 	
-	public static void execute(LoggedInAuthenticatedUser user)
+	public static void execute(LoggedInAuthenticatedUser user) throws NumberFormatException, IOException
 	{
 		if (!user.getAuthenticationToken().getUserType().equals("Student"))
 		{	
@@ -59,11 +63,11 @@ public class SetNotifPref
 		
 		StudentModel student = (StudentModel) ModelRegister.getInstance().getRegisteredUser(user.getID());
 		
-		Scanner scanner = new Scanner(System.in);
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
 		System.out.println("Enter the index of the notification type you prefer: ");
 		System.out.println("1. Email	2. Cellphone	3. Pigeon Post (really?)");
-		int choice = scanner.nextInt();
+		int choice = Integer.parseInt(br.readLine());
 		
 		switch (choice)
 		{
