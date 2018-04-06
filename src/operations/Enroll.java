@@ -5,16 +5,18 @@ import offerings.CourseOffering;
 import systemUsers.StudentModel;
 import authenticatedUsers.LoggedInAuthenticatedUser;
 import authenticatedUsers.LoggedInStudent;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
 import java.util.List;
 
 public class Enroll 
 {
 	public Enroll(){}
 	
-	public void execute(LoggedInAuthenticatedUser user) 
+	public static void execute(LoggedInAuthenticatedUser user) throws IOException
 	{
-		if (!user.getAuthenticationToken().getUserType().equals("Student"))
+		if (user == null || !user.getAuthenticationToken().getUserType().equals("Student"))
 		{	
 			System.out.println("Only student can enroll");
 			return;
@@ -23,10 +25,12 @@ public class Enroll
 		{
 			user = (LoggedInStudent) user;
 			StudentModel student = (StudentModel) ModelRegister.getInstance().getRegisteredUser(user.getID());
-			Scanner scanner = new Scanner(System.in);
+			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+			
 			System.out.println("Enter the course ID you want to enroll:");
-			String course_id = scanner.nextLine();
-			scanner.close();
+			String course_id = "";
+			
+			course_id = br.readLine();
 			
 			CourseOffering course = ModelRegister.getInstance().getRegisteredCourse(course_id);
 			if (course == null)
@@ -47,6 +51,8 @@ public class Enroll
 				student.getCoursesEnrolled().add(course);
 				ModelRegister.getInstance().registerCourse(student.getID(), course);
 			}
+			
+			br.close();
 		}
 	}
 	

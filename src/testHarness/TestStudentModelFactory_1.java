@@ -8,8 +8,12 @@ import java.io.IOException;
 import offerings.CourseOffering;
 import offerings.ICourseOffering;
 import offerings.OfferingFactory;
+import operations.Enroll;
+import operations.Login;
 import registrar.ModelRegister;
 import systemUsers.StudentModel;
+import others.GenerateUsers;
+import authenticatedUsers.LoggedInAuthenticatedUser;
 
 public class TestStudentModelFactory_1 {
 
@@ -21,6 +25,10 @@ public class TestStudentModelFactory_1 {
 //	}
 
 	public static void main(String[] args) throws IOException{
+		GenerateUsers.generate_users("users.txt");
+		GenerateUsers.generate_users("note_1.txt", "users.txt");
+		GenerateUsers.generate_users("note_2.txt", "users.txt");
+		
 //		Create an instance of an OfferingFactory
 		OfferingFactory factory = new OfferingFactory();
 		BufferedReader br = new BufferedReader(new FileReader(new File("note_1.txt")));
@@ -50,8 +58,8 @@ public class TestStudentModelFactory_1 {
 			}
 		}
 		
-		
-		
+		LoggedInAuthenticatedUser user = Login.execute();
+		Enroll.execute(user);
 		
 	}
 }

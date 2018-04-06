@@ -12,7 +12,7 @@ public class Authentication
 {
 	public Authentication(){}
 	
-	public LoggedInAuthenticatedUser execute(String first_name, String surname, String ID) throws IOException
+	public static LoggedInAuthenticatedUser execute(String first_name, String surname, String ID) throws IOException
 	{
 		GenerateUsers users = new GenerateUsers();
 		String type = users.validate(first_name, surname, ID);
