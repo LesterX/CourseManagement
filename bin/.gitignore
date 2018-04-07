@@ -4,3 +4,8 @@
 /operations/
 /authenticatedUsers/
 /systemUserModelFactories/
+/systemStatus.class
+/startSystem.class
+/stopSystem.class
+/adminServices/
+/System/

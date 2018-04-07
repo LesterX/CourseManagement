@@ -5,14 +5,10 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Scanner;
 
 import offerings.CourseOffering;
-import offerings.ICourseOffering;
 import offerings.OfferingFactory;
 import operations.*;
-import registrar.ModelRegister;
-import systemUsers.StudentModel;
 import authenticatedUsers.LoggedInAuthenticatedUser;
 
 public class TestStudentModelFactory_1 {
