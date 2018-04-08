@@ -9,7 +9,9 @@ import java.io.InputStreamReader;
 import offerings.CourseOffering;
 import offerings.OfferingFactory;
 import operations.*;
+import adminServices.*;
 import authenticatedUsers.LoggedInAuthenticatedUser;
+import System.systemStatus;
 
 public class TestStudentModelFactory_1 {
 
@@ -50,6 +52,7 @@ public class TestStudentModelFactory_1 {
 		*/
 		
 		//Simple user interface
+		boolean status = systemStatus.instance().status();
 		System.out.println("Please login: ");
 		LoggedInAuthenticatedUser user = Login.execute();
 		
@@ -59,7 +62,39 @@ public class TestStudentModelFactory_1 {
 		{
 			case "Admin":
 			{
-				//TODO
+				if (!status)
+				{
+					System.out.println("System is closed");
+					break;
+				}
+				System.out.println("Authentication Compelte: Admin");
+				while (true)
+				{
+					System.out.println("Select the service: ");
+					System.out.println("1.Start system\n2.Stop system\n3.Read course file\n4.Quit");
+					int line = Integer.parseInt(br.readLine());
+					
+					if (line < 1 || line > 3)
+						break;
+					
+					switch (line)
+					{
+						case 1: 
+							startSystem.execute(user);
+							break;
+						case 2: 
+							stopSystem.execute(user);
+							break;
+						case 3: 
+							PrintCoursesEnrolled.execute(user);
+							break;
+						case 4: 
+							SetNotifPref.execute(user);
+							break;
+						default:  
+							break;
+					}
+				}
 			}
 			case "Instructor":
 			{
@@ -67,6 +102,11 @@ public class TestStudentModelFactory_1 {
 			}
 			case "Student":
 			{
+				if (!status)
+				{
+					System.out.println("System is closed");
+					break;
+				}
 				System.out.println("Authentication Compelte: Student");
 				while (true)
 				{
@@ -96,6 +136,8 @@ public class TestStudentModelFactory_1 {
 					}
 				}
 			}
+			default:
+				break;
 		}
 	}
 }
