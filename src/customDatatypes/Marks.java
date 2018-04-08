@@ -22,6 +22,12 @@ public class Marks {
 			evalStrategy.put(examOrAssignement, mark);
 	}
 
+	public void changeEvalStrategy(String exam, Double mark){
+		Map<String, Double>newStrat = new HashMap<String, Double>();
+		newStrat.put(exam, mark);
+		evalStrategy = newStrat;
+	}
+
 	public void initializeIterator(){
 		entrySet = evalStrategy.entrySet().iterator();
 	}

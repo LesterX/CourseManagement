@@ -5,18 +5,16 @@ import systemUsers.StudentModel;
 import authenticatedUsers.LoggedInAuthenticatedUser;
 import java.util.Scanner;
 import offerings.CourseOffering;
-import customDatatypes.Marks;
 
 public class PrintRecord 
 {
 	public PrintRecord(){}
 	
-	public static void execute(LoggedInAuthenticatedUser user)
+	public static void execute(LoggedInAuthenticatedUser user) throws RuntimeException
 	{
-		if (!user.getAuthenticationToken().getUserType().equals("Student"))
-		{	
-			System.out.println("Only student can enroll");
-			return;
+		if (user == null || !user.getAuthenticationToken().getUserType().equals("Instructor"))
+		{
+			throw new RuntimeException("Only instructors can print record");
 		}
 		
 		Scanner scanner = new Scanner(System.in);
@@ -28,81 +26,65 @@ public class PrintRecord
 		
 		if (course == null)
 		{
-			System.out.println("Course not found");
-			return;
+			throw new RuntimeException("No course has been found");
 		}
-		if (student.getPerCourseMarks() == null)
-		{
-			System.out.println("No marks available");
-			return;
+
+		System.out.println("ID : " + course.getCourseID() + "\nCourse name : " + course.getCourseName() + "\nSemester : " +
+				course.getSemester());
+		System.out.println("Students allowed to enroll\n");
+		for(StudentModel student_temp : course.getStudentsEnrolled()){
+			System.out.println("Student name : " + student_temp.getName() + "\nStudent surname : " + student_temp.getSurname() +
+					"\nStudent ID : " + student_temp.getID() + "\nStudent EvaluationType : " +
+					student_temp.getEvaluationEntities().get(course) + "\n\n");
 		}
-		
-		Marks mark = student.getPerCourseMarks().get(course);
-		mark.initializeIterator();
-		
-		System.out.println(course.getCourseName());
-		
-		while (mark.hasNext())
-		{
-			System.out.println(mark.getCurrentKey() + "		" + mark.getCurrentValue());
-			mark.next();
-		}
+
 	}
 	
 	public static void execute(LoggedInAuthenticatedUser user, CourseOffering course)
 	{
-		if (!user.getAuthenticationToken().getUserType().equals("Student"))
-		{	
-			System.out.println("Only student can enroll");
-			return;
+		if (user == null || !user.getAuthenticationToken().getUserType().equals("Instructor"))
+		{
+			throw new RuntimeException("Only instructors can print record");
 		}
-		
-		StudentModel student = (StudentModel) ModelRegister.getInstance().getRegisteredUser(user.getID());
-		
+
 		if (course == null)
 		{
-			System.out.println("Course not found");
-			return;
+			throw new RuntimeException("No course has been found");
 		}
-		
-		Marks mark = student.getPerCourseMarks().get(course);
-		mark.initializeIterator();
-		
-		System.out.println(course.getCourseName());
-		
-		while (mark.hasNext())
-		{
-			System.out.println(mark.getCurrentKey() + "		" + mark.getCurrentValue());
-			mark.next();
+
+		System.out.println("ID : " + course.getCourseID() + "\nCourse name : " + course.getCourseName() + "\nSemester : " +
+				course.getSemester());
+		System.out.println("Students allowed to enroll\n");
+		for(StudentModel student_temp : course.getStudentsEnrolled()){
+			System.out.println("Student name : " + student_temp.getName() + "\nStudent surname : " + student_temp.getSurname() +
+					"\nStudent ID : " + student_temp.getID() + "\nStudent EvaluationType : " +
+					student_temp.getEvaluationEntities().get(course) + "\n\n");
 		}
+
 	}
 	
 	public void execute(LoggedInAuthenticatedUser user, String course_id)
 	{
-		if (!user.getAuthenticationToken().getUserType().equals("Student"))
-		{	
-			System.out.println("Only student can print records");
-			return;
+		if (user == null || !user.getAuthenticationToken().getUserType().equals("Instructor"))
+		{
+			throw new RuntimeException("Only instructors can print record");
 		}
-		
+
 		CourseOffering course = ModelRegister.getInstance().getRegisteredCourse(course_id);
-		StudentModel student = (StudentModel) ModelRegister.getInstance().getRegisteredUser(user.getID());
-		
+
 		if (course == null)
 		{
-			System.out.println("Course not found");
-			return;
+			throw new RuntimeException("No course has been found");
 		}
-		
-		Marks mark = student.getPerCourseMarks().get(course);
-		mark.initializeIterator();
-		
-		System.out.println(course.getCourseName());
-		
-		while (mark.hasNext())
-		{
-			System.out.println(mark.getCurrentKey() + "		" + mark.getCurrentValue());
-			mark.next();
+
+		System.out.println("ID : " + course.getCourseID() + "\nCourse name : " + course.getCourseName() + "\nSemester : " +
+				course.getSemester());
+		System.out.println("Students allowed to enroll\n");
+		for(StudentModel student_temp : course.getStudentsEnrolled()){
+			System.out.println("Student name : " + student_temp.getName() + "\nStudent surname : " + student_temp.getSurname() +
+					"\nStudent ID : " + student_temp.getID() + "\nStudent EvaluationType : " +
+					student_temp.getEvaluationEntities().get(course) + "\n\n");
 		}
+
 	}
 }
