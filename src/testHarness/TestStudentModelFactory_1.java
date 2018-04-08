@@ -14,6 +14,7 @@ import operations.instructorOperations.*;
 import operations.studentOperations.*;
 import registrar.ModelRegister;
 import system.systemStatus;
+import systemUsers.AdminModel;
 import authenticatedUsers.LoggedInAuthenticatedUser;
 
 public class TestStudentModelFactory_1 {
@@ -32,7 +33,6 @@ public class TestStudentModelFactory_1 {
 		courseOffering = factory.createCourseOffering(br);
 		ModelRegister.getInstance().registerCourse(courseOffering.getCourseID(), courseOffering);
 		br.close();
-		
 		/**
 //		code to perform sanity checking of all our code
 //		by printing all of the data that we've loaded
@@ -52,120 +52,149 @@ public class TestStudentModelFactory_1 {
 			}
 		}
 		*/
+		//Add a admin account
+		AdminModel admin = new AdminModel();
+		admin.setID("0000");
+		admin.setName("Admin");
+		admin.setSurname("Admin");
+		ModelRegister.getInstance().registerUser("0000", admin);
 		
 		//Simple user interface
-		boolean status = systemStatus.instance().status();
+		boolean status;
+			
+		br = new BufferedReader(new InputStreamReader(System.in));
 		System.out.println("Please login: ");
 		LoggedInAuthenticatedUser user = Login.execute();
-		
-		br = new BufferedReader(new InputStreamReader(System.in));
-		
-		switch (user.get_type())
+		while (user != null)
 		{
-			case "Admin":
+			switch (user.get_type())
 			{
-				System.out.println("Authentication Compelte: Admin");
-				while (true)
+				case "Admin":
 				{
-					System.out.println("Select the service: ");
-					System.out.println("1.Start system\n2.Stop system\n3.Read course file\n4.Create user\n5.Quit");
-					int line = Integer.parseInt(br.readLine());
-					
-					if (line < 1 || line > 4)
-						break;
-					
-					switch (line)
+					System.out.println("Authentication Compelte: Admin");
+					while (true)
 					{
-						case 1: 
-							startSystem.execute(user);
+						System.out.println("\n\nSelect the service: ");
+						System.out.println("1.Start system\n2.Stop system\n3.Read course file\n4.Create user\n5.Print all users \n6.Print all courses\n7.Logout\n");
+						int line = Integer.parseInt(br.readLine());
+						
+						if (line < 1 || line > 6)
 							break;
-						case 2: 
-							stopSystem.execute(user);
-							break;
-						case 3: 
-							readCourseFile.execute(user);
-							break;
-						case 4:
-							createUser.execute(user);
-						default:  
-							break;
+						
+						switch (line)
+						{
+							case 1: 
+								startSystem.execute(user);
+								break;
+							case 2: 
+								stopSystem.execute(user);
+								break;
+							case 3: 
+								readCourseFile.execute(user);
+								break;
+							case 4:
+								createUser.execute(user);
+								break;
+							case 5:
+								PrintAllUsers.execute(user);
+								break;
+							case 6:
+								PrintAllCourses.execute(user);
+							default:  
+								break;
+						}
 					}
-				}
-			}
-			case "Instructor":
-			{
-				if (!status)
-				{
-					System.out.println("System is closed");
 					break;
 				}
-				System.out.println("Authentication Compelte: Instructor");
-				while (true)
+				case "Instructor":
 				{
-					System.out.println("Select the service: ");
-					System.out.println("1.Add mark\n2.Calculate grade \n3.Modify mark \n4.Print mark\n5.Quit");
-					int line = Integer.parseInt(br.readLine());
-					
-					if (line < 1 || line > 4)
-						break;
-					
-					switch (line)
+					status = system.systemStatus.instance().status();
+					if (!status)
 					{
-						case 1: 
-							AddMarks.execute(user);
-							break;
-						case 2: 
-							CalculateGrades.execute(user);
-							break;
-						case 3: 
-							ModifyMarks.execute(user);
-							break;
-						case 4: 
-							PrintMarks.execute(user);
-							break;
-						default:  
-							break;
+						System.out.println("System is closed");
+						break;
 					}
-				}
-			}
-			case "Student":
-			{
-				if (!status)
-				{
-					System.out.println("System is closed");
+					System.out.println("Authentication Compelte: Instructor");
+					while (true)
+					{
+						System.out.println("\n\nSelect the service: ");
+						System.out.println("1.Add mark\n2.Calculate grade \n3.Modify mark \n4.Print mark\n5.Logout\n");
+						int line = Integer.parseInt(br.readLine());
+						
+						if (line < 1 || line > 4)
+							break;
+						
+						switch (line)
+						{
+							case 1: 
+								AddMarks.execute(user);
+								break;
+							case 2: 
+								CalculateGrades.execute(user);
+								break;
+							case 3: 
+								ModifyMarks.execute(user);
+								break;
+							case 4: 
+								PrintMarks.execute(user);
+								break;
+							default:  
+								break;
+						}
+					}
 					break;
 				}
-				System.out.println("Authentication Compelte: Student");
-				while (true)
+				case "Student":
 				{
-					System.out.println("Select the service: ");
-					System.out.println("1.Enroll\n2.Print Records of a course \n3.Print all courses enrolled \n4.Set notification preference\n5.Quit");
-					int line = Integer.parseInt(br.readLine());
-					
-					if (line < 1 || line > 4)
-						break;
-					
-					switch (line)
+					status = system.systemStatus.instance().status();
+					if (!status)
 					{
-						case 1: 
-							Enroll.execute(user);
-							break;
-						case 2: 
-							PrintRecord.execute(user);
-							break;
-						case 3: 
-							PrintCoursesEnrolled.execute(user);
-							break;
-						case 4: 
-							SetNotifPref.execute(user);
-							break;
-						default:  
-							break;
+						System.out.println("System is closed");
+						break;
 					}
+					System.out.println("Authentication Compelte: Student");
+					while (true)
+					{
+						System.out.println("\n\nSelect the service: ");
+						System.out.println("1.Enroll\n2.Print Records of a course \n3.Print all courses enrolled \n4.Set notification preference\n5.Logout\n");
+						int line = Integer.parseInt(br.readLine());
+						
+						if (line < 1 || line > 4)
+							break;
+						
+						switch (line)
+						{
+							case 1: 
+								Enroll.execute(user);
+								break;
+							case 2: 
+								PrintRecord.execute(user);
+								break;
+							case 3: 
+								PrintCoursesEnrolled.execute(user);
+								break;
+							case 4: 
+								SetNotifPref.execute(user);
+								break;
+							default:  
+								break;
+						}
+					}
+					break;
 				}
+				default:
+					break;
 			}
-			default:
+			
+			System.out.println("Do you want to login another account? [Y/N]");
+			String in = br.readLine();
+			if (!in.toUpperCase().equals("Y"))
 				break;
+			else
+			{
+				System.out.println("Please login: ");
+				user = Login.execute();
+			}
 		}
 	}
 }

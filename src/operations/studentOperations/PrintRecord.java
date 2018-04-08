@@ -10,11 +10,11 @@ public class PrintRecord
 {
 	public PrintRecord(){}
 	
-	public static void execute(LoggedInAuthenticatedUser user) throws RuntimeException
+	public static void execute(LoggedInAuthenticatedUser user)
 	{
-		if (user == null || !user.getAuthenticationToken().getUserType().equals("Instructor"))
+		if (user == null || !user.getAuthenticationToken().getUserType().equals("Student"))
 		{
-			throw new RuntimeException("Only instructors can print record");
+			System.out.println("Only student can print record");
 		}
 		
 		Scanner scanner = new Scanner(System.in);

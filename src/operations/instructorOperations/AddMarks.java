@@ -68,7 +68,7 @@ public class AddMarks {
         
         if (student == null)
         {
-        	System.out.println("Student not found");
+        	System.out.println("Student not found in enrolled list");
         	return;
         }
         
@@ -89,17 +89,14 @@ public class AddMarks {
         Map<ICourseOffering, Marks> marks = student.getPerCourseMarks();
         while (weight.hasNext())
         {
+        	weight.next();
         	if (weight.getCurrentKey().equals(title))
         	{
-        		if (marks.get(course).getValueWithKey(title) != null)
-        		{
-        			System.out.println("Mark already exists under this title, please choose modify mark instead of add mark");
-        			return;
-        		}
-        		
         		System.out.println("Enther the grade: ");
         		double grade = Double.parseDouble(br.readLine());
-        		Marks mark = new Marks();
+        		Marks mark = student.getPerCourseMarks().get(course);
+        		if (mark == null)
+        			mark = new Marks();
         		mark.addToEvalStrategy(title, grade);
         		marks.put(course, mark);
         		student.setPerCourseMarks(marks);

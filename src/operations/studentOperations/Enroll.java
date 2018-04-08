@@ -2,13 +2,18 @@ package operations.studentOperations;
 
 import registrar.ModelRegister;
 import offerings.CourseOffering;
+import offerings.ICourseOffering;
 import systemUsers.StudentModel;
 import authenticatedUsers.LoggedInAuthenticatedUser;
 import authenticatedUsers.LoggedInStudent;
+import customDatatypes.Marks;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Enroll 
 {
@@ -49,6 +54,13 @@ public class Enroll
 			{
 				course.getStudentsEnrolled().add(student);
 				student.getCoursesEnrolled().add(course);
+				if (student.getPerCourseMarks() == null)
+					student.setPerCourseMarks(new HashMap<ICourseOffering,Marks>());
+
+				Map<ICourseOffering,Marks> student_marks = student.getPerCourseMarks();
+				student_marks.put(course, new Marks());
+				student.setPerCourseMarks(student_marks);
+				
 				ModelRegister.getInstance().registerCourse(student.getID(), course);
 			}
 		}

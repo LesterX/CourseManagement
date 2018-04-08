@@ -55,4 +55,9 @@ public class ModelRegister {
 		return courses;
 	}
 
+	public List<SystemUserModel> getAllUsers(){
+		List<SystemUserModel> users = new ArrayList<SystemUserModel>();
+		users.addAll(modelRegister.values());
+		return users;
+	}
 }

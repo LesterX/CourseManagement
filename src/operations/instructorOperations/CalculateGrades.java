@@ -66,11 +66,13 @@ public class CalculateGrades {
         Marks marks  = target.getPerCourseMarks().get(course);
         weights.initializeIterator();
         System.out.println("Course: " + course.getCourseID() + "\nStudent: " + target.getID() + "    " + target.getName() + "  " + target.getSurname());
-        System.out.println("Weights            Mark");
         while(weights.hasNext()){
             weights.next();
-            System.out.println(weights.getCurrentKey() + "      " + marks.getValueWithKey(weights.getCurrentKey()));
-            finalGrade += weights.getCurrentValue() * marks.getValueWithKey(weights.getCurrentKey());
+            if (marks.getValueWithKey(weights.getCurrentKey()) == null)
+            	marks.addToEvalStrategy(weights.getCurrentKey(), 0.0);
+            
+            System.out.println(weights.getCurrentKey() + "      " + marks.getValueWithKey(weights.getCurrentKey()) + " * " + weights.getCurrentValue() / 100);
+            finalGrade += weights.getCurrentValue() / 100 * marks.getValueWithKey(weights.getCurrentKey());
         }
         
         System.out.println("Final Grade: " + finalGrade);

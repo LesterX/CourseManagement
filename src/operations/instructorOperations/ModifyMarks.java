@@ -91,7 +91,8 @@ public class ModifyMarks {
         {
         	if (weight.getCurrentKey().equals(title))
         	{
-        		if (marks.get(course).getValueWithKey(title) == null)
+        		Marks mark = marks.get(course);
+        		if (mark == null || marks.get(course).getValueWithKey(title) == null)
         		{
         			System.out.println("Mark does not exists under this title, please choose add mark instead of modify mark");
         			return;
@@ -99,11 +100,10 @@ public class ModifyMarks {
         		
         		System.out.println("Enther the grade: ");
         		double grade = Double.parseDouble(br.readLine());
-        		Marks mark = new Marks();
-        		mark.addToEvalStrategy(title, grade);
+        		mark.changeEvalStrategy(title, grade);;
         		marks.put(course, mark);
         		student.setPerCourseMarks(marks);
-        		System.out.println("Mark modified");
+        		System.out.println("Mark added");
         		return;
         	}
         }

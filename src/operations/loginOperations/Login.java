@@ -22,7 +22,10 @@ public class Login
 		LoggedInAuthenticatedUser user = Authentication.execute(first_name, surname, ID);
 		
 		if (user == null)
+		{	
 			System.out.println("User not found");
+			return null;
+		}
 		else
 			System.out.println("Logged In");
 		

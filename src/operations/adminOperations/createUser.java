@@ -43,6 +43,7 @@ public class createUser
 				new_user.setSurname(surname);
 				new_user.setID(id);
 				ModelRegister.getInstance().registerUser(id, new_user);
+				break;
 			}
 			case "2":
 			{
@@ -51,6 +52,7 @@ public class createUser
 				new_user.setSurname(surname);
 				new_user.setID(id);
 				ModelRegister.getInstance().registerUser(id, new_user);
+				break;
 			}
 			case "3":
 			{
@@ -59,6 +61,7 @@ public class createUser
 				new_user.setSurname(surname);
 				new_user.setID(id);
 				ModelRegister.getInstance().registerUser(id, new_user);
+				break;
 			}
 			default:
 			{
