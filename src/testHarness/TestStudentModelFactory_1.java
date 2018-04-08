@@ -8,27 +8,29 @@ import java.io.InputStreamReader;
 
 import offerings.CourseOffering;
 import offerings.OfferingFactory;
-import operations.*;
-import adminServices.*;
+import operations.loginOperations.*;
+import operations.adminOperations.*;
+import operations.instructorOperations.*;
+import operations.studentOperations.*;
+import registrar.ModelRegister;
+import system.systemStatus;
 import authenticatedUsers.LoggedInAuthenticatedUser;
-import System.systemStatus;
 
 public class TestStudentModelFactory_1 {
 
 	public static void main(String[] args) throws IOException{
-		//GenerateUsers.generate_users("note_1.txt");
-		//GenerateUsers.generate_users("note_2.txt");
-		
 //		Create an instance of an OfferingFactory
 		OfferingFactory factory = new OfferingFactory();
 		BufferedReader br = new BufferedReader(new FileReader(new File("note_1.txt")));
 //		Use the factory to populate as many instances of courses as many files we've got.
 		CourseOffering	courseOffering = factory.createCourseOffering(br);
+		ModelRegister.getInstance().registerCourse(courseOffering.getCourseID(), courseOffering);
 		br.close();
 //		Loading 1 file at a time
 		br = new BufferedReader(new FileReader(new File("note_2.txt")));
 //		here we have only two files
 		courseOffering = factory.createCourseOffering(br);
+		ModelRegister.getInstance().registerCourse(courseOffering.getCourseID(), courseOffering);
 		br.close();
 		
 		/**
@@ -62,19 +64,14 @@ public class TestStudentModelFactory_1 {
 		{
 			case "Admin":
 			{
-				if (!status)
-				{
-					System.out.println("System is closed");
-					break;
-				}
 				System.out.println("Authentication Compelte: Admin");
 				while (true)
 				{
 					System.out.println("Select the service: ");
-					System.out.println("1.Start system\n2.Stop system\n3.Read course file\n4.Quit");
+					System.out.println("1.Start system\n2.Stop system\n3.Read course file\n4.Create user\n5.Quit");
 					int line = Integer.parseInt(br.readLine());
 					
-					if (line < 1 || line > 3)
+					if (line < 1 || line > 4)
 						break;
 					
 					switch (line)
@@ -86,11 +83,10 @@ public class TestStudentModelFactory_1 {
 							stopSystem.execute(user);
 							break;
 						case 3: 
-							PrintCoursesEnrolled.execute(user);
+							readCourseFile.execute(user);
 							break;
-						case 4: 
-							SetNotifPref.execute(user);
-							break;
+						case 4:
+							createUser.execute(user);
 						default:  
 							break;
 					}
@@ -98,7 +94,39 @@ public class TestStudentModelFactory_1 {
 			}
 			case "Instructor":
 			{
-				//TODO
+				if (!status)
+				{
+					System.out.println("System is closed");
+					break;
+				}
+				System.out.println("Authentication Compelte: Instructor");
+				while (true)
+				{
+					System.out.println("Select the service: ");
+					System.out.println("1.Add mark\n2.Calculate grade \n3.Modify mark \n4.Print mark\n5.Quit");
+					int line = Integer.parseInt(br.readLine());
+					
+					if (line < 1 || line > 4)
+						break;
+					
+					switch (line)
+					{
+						case 1: 
+							AddMarks.execute(user);
+							break;
+						case 2: 
+							CalculateGrades.execute(user);
+							break;
+						case 3: 
+							ModifyMarks.execute(user);
+							break;
+						case 4: 
+							PrintMarks.execute(user);
+							break;
+						default:  
+							break;
+					}
+				}
 			}
 			case "Student":
 			{

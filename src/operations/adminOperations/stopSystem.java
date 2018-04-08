@@ -1,9 +1,9 @@
-package adminServices;
+package operations.adminOperations;
 
-import System.systemStatus;
 import authenticatedUsers.LoggedInAuthenticatedUser;
+import system.systemStatus;
 
-public class startSystem {
+public class stopSystem {
 	public static void execute(LoggedInAuthenticatedUser user) {
 		if (!user.get_type().equals("Admin"))
 		{
@@ -11,8 +11,8 @@ public class startSystem {
 			return;
 		}
 		
-		systemStatus.instance().start();
-		System.out.println("The system has started");
+		systemStatus.instance().stop();
+		System.out.println("the system is now stopped");
 	}
 
 }

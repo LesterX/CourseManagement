@@ -1,4 +1,4 @@
-package operations;
+package operations.studentOperations;
 
 import registrar.ModelRegister;
 import offerings.CourseOffering;

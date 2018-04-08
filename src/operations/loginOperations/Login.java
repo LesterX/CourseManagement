@@ -1,4 +1,4 @@
-package operations;
+package operations.loginOperations;
 
 import authenticatedUsers.LoggedInAuthenticatedUser;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package operations;
+package operations.studentOperations;
 
 import authenticatedUsers.LoggedInAuthenticatedUser;
 import systemUsers.StudentModel;
