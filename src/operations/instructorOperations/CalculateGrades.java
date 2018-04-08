@@ -78,7 +78,7 @@ public class CalculateGrades {
         System.out.println("Final Grade: " + finalGrade);
     }
     
-    public static void execute(LoggedInAuthenticatedUser user, CourseOffering course, StudentModel student)
+    public static void execute(LoggedInAuthenticatedUser user, CourseOffering course, StudentModel target)
     {
     	if (!systemStatus.instance().status())
 		{
@@ -108,7 +108,7 @@ public class CalculateGrades {
         
         found = false;
         for(StudentModel studentModel : course.getStudentsEnrolled())
-            if (studentModel.equals(student))
+            if (studentModel.equals(target))
                  found = true;
         if (!found)
         {
@@ -116,15 +116,17 @@ public class CalculateGrades {
         	return;
         }
         
-        Weights weights = course.getEvaluationStrategies().get(student.getEvaluationEntities().get(course));
-        Marks marks  = student.getPerCourseMarks().get(course);
+        Weights weights = course.getEvaluationStrategies().get(target.getEvaluationEntities().get(course));
+        Marks marks  = target.getPerCourseMarks().get(course);
         weights.initializeIterator();
-        System.out.println("Course: " + course.getCourseID() + "\nStudent: " + student.getID() + "    " + student.getName() + "  " + student.getSurname());
-        System.out.println("Weights            Mark");
+        System.out.println("Course: " + course.getCourseID() + "\nStudent: " + target.getID() + "    " + target.getName() + "  " + target.getSurname());
         while(weights.hasNext()){
             weights.next();
-            System.out.println(weights.getCurrentKey() + "      " + marks.getValueWithKey(weights.getCurrentKey()));
-            finalGrade += weights.getCurrentValue() * marks.getValueWithKey(weights.getCurrentKey());
+            if (marks.getValueWithKey(weights.getCurrentKey()) == null)
+            	marks.addToEvalStrategy(weights.getCurrentKey(), 0.0);
+            
+            System.out.println(weights.getCurrentKey() + "      " + marks.getValueWithKey(weights.getCurrentKey()) + " * " + weights.getCurrentValue() / 100);
+            finalGrade += weights.getCurrentValue() / 100 * marks.getValueWithKey(weights.getCurrentKey());
         }
         
         System.out.println("Final Grade: " + finalGrade);

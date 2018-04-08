@@ -3,6 +3,7 @@ package operations.studentOperations;
 import authenticatedUsers.LoggedInAuthenticatedUser;
 import systemUsers.StudentModel;
 import registrar.ModelRegister;
+import system.systemStatus;
 import customDatatypes.NotificationTypes;
 
 import java.io.BufferedReader;
@@ -16,6 +17,11 @@ public class SetNotifPref
 	
 	public static void execute(LoggedInAuthenticatedUser user, NotificationTypes np)
 	{
+		if (!systemStatus.instance().status())
+		{
+			System.out.println("System is closed");
+			return;
+		}
 		if (!user.getAuthenticationToken().getUserType().equals("Student"))
 		{	
 			System.out.println("Only student can set notification preference");

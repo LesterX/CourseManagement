@@ -65,8 +65,6 @@ public class PrintMarks {
             StudentModel student = (StudentModel) ModelRegister.getInstance().getRegisteredUser(student_id);
             CalculateGrades.execute(user, course, student);
         }
-        
-        System.out.println("Enter the student ID");
     }
     
     public static void execute(LoggedInAuthenticatedUser user, CourseOffering course) throws RuntimeException

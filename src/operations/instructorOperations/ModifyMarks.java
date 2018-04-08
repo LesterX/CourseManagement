@@ -89,6 +89,7 @@ public class ModifyMarks {
         Map<ICourseOffering, Marks> marks = student.getPerCourseMarks();
         while (weight.hasNext())
         {
+        	weight.next();
         	if (weight.getCurrentKey().equals(title))
         	{
         		Marks mark = marks.get(course);
@@ -100,7 +101,7 @@ public class ModifyMarks {
         		
         		System.out.println("Enther the grade: ");
         		double grade = Double.parseDouble(br.readLine());
-        		mark.changeEvalStrategy(title, grade);;
+        		mark.addToEvalStrategy(title, grade);
         		marks.put(course, mark);
         		student.setPerCourseMarks(marks);
         		System.out.println("Mark added");

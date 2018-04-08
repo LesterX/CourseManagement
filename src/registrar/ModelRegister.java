@@ -46,7 +46,7 @@ public class ModelRegister {
 	}
 	
 	public CourseOffering getRegisteredCourse(String ID){
-		return courseRegister.get(ID);
+		return courseRegister.get(ID.toUpperCase());
 	}
 	
 	public List<CourseOffering> getAllCourses(){

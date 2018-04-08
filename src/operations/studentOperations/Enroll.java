@@ -1,6 +1,7 @@
 package operations.studentOperations;
 
 import registrar.ModelRegister;
+import system.systemStatus;
 import offerings.CourseOffering;
 import offerings.ICourseOffering;
 import systemUsers.StudentModel;
@@ -21,6 +22,11 @@ public class Enroll
 	
 	public static void execute(LoggedInAuthenticatedUser user) throws IOException
 	{
+		if (!systemStatus.instance().status())
+		{
+			System.out.println("System is closed");
+			return;
+		}
 		if (user == null || !user.getAuthenticationToken().getUserType().equals("Student"))
 		{	
 			System.out.println("Only student can enroll");

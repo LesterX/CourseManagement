@@ -19,7 +19,7 @@ public class Marks {
 	public void addToEvalStrategy(String examOrAssignement, Double mark){
 		if(evalStrategy == null)
 			evalStrategy = new HashMap<String, Double>();
-			evalStrategy.put(examOrAssignement, mark);
+		evalStrategy.put(examOrAssignement, mark);
 	}
 
 	public void changeEvalStrategy(String exam, Double mark){
