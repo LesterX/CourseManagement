@@ -1,4 +1,15 @@
-package testHarness;
+/**
+The University of Western Ontario
+Computer Science 2212
+Group 45
+Course Management System
+	Group Members:
+		Yuming Dong
+		Tianyuan Liu	250864391
+		Mounib Samara	250868676
+		Yimin Xu		250876566
+*/
+package test;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -17,9 +28,11 @@ import system.systemStatus;
 import systemUsers.AdminModel;
 import authenticatedUsers.LoggedInAuthenticatedUser;
 
-public class TestStudentModelFactory_1 {
+public class Test {
 
 	public static void main(String[] args) throws IOException{
+		
+		//Load the course file into the registrar, can also be done by admin service 
 //		Create an instance of an OfferingFactory
 		OfferingFactory factory = new OfferingFactory();
 		BufferedReader br = new BufferedReader(new FileReader(new File("note_1.txt")));
@@ -52,7 +65,7 @@ public class TestStudentModelFactory_1 {
 			}
 		}
 		*/
-		//Add a admin account
+		//Add a admin account because there is no admin user in the input files
 		AdminModel admin = new AdminModel();
 		admin.setID("0000");
 		admin.setName("Admin");
@@ -64,6 +77,7 @@ public class TestStudentModelFactory_1 {
 			
 		br = new BufferedReader(new InputStreamReader(System.in));
 		System.out.println("Please login: ");
+		//Read user input
 		LoggedInAuthenticatedUser user = Login.execute();
 		while (user != null)
 		{
@@ -71,6 +85,8 @@ public class TestStudentModelFactory_1 {
 			{
 				case "Admin":
 				{
+					//No need to check system status here for admin
+					//because admin needs to access the start system service
 					System.out.println("Authentication Compelte: Admin");
 					while (true)
 					{
@@ -108,6 +124,7 @@ public class TestStudentModelFactory_1 {
 				}
 				case "Instructor":
 				{
+					//If the system is stopped, block all services
 					status = system.systemStatus.instance().status();
 					if (!status)
 					{
@@ -146,6 +163,7 @@ public class TestStudentModelFactory_1 {
 				}
 				case "Student":
 				{
+					//Same as above
 					status = system.systemStatus.instance().status();
 					if (!status)
 					{
@@ -186,6 +204,7 @@ public class TestStudentModelFactory_1 {
 					break;
 			}
 			
+			//Ask user to login if input is "Y" or "y"
 			System.out.println("Do you want to login another account? [Y/N]");
 			String in = br.readLine();
 			if (!in.toUpperCase().equals("Y"))

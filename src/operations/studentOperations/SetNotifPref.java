@@ -17,6 +17,7 @@ public class SetNotifPref
 	
 	public static void execute(LoggedInAuthenticatedUser user, NotificationTypes np)
 	{
+		//If the system is closed or the user is not Student type, return
 		if (!systemStatus.instance().status())
 		{
 			System.out.println("System is closed");
@@ -35,6 +36,7 @@ public class SetNotifPref
 	
 	public static void execute(LoggedInAuthenticatedUser user, String np_string)
 	{
+		//If the system is closed or the user is not Student type, return
 		NotificationTypes np;
 		if (!user.getAuthenticationToken().getUserType().equals("Student"))
 		{	
@@ -44,6 +46,7 @@ public class SetNotifPref
 		
 		StudentModel student = (StudentModel) ModelRegister.getInstance().getRegisteredUser(user.getID());
 		
+		//Read notification type from user input
 		if (np_string.toUpperCase().equals("EMAIL"))
 			np = NotificationTypes.EMAIL;
 		else if (np_string.toUpperCase().equals("CELLPHONE"))

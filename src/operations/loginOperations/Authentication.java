@@ -15,12 +15,14 @@ public class Authentication
 	
 	public static LoggedInAuthenticatedUser execute(String first_name, String surname, String ID) throws IOException
 	{
+		//Search the user's information in the register
 		SystemUserModel user_registered = ModelRegister.getInstance().getRegisteredUser(ID);
 		
-		
+		//If not found, return
 		if (user_registered == null)
 			return null;
 		
+		//Create the LoggedInAuthenticatedUser based on their user type
 		switch (user_registered.get_type())
 		{
 			case "Admin":

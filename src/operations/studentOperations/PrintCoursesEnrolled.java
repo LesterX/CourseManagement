@@ -11,6 +11,7 @@ public class PrintCoursesEnrolled
 {
 	public static void execute(LoggedInAuthenticatedUser user)
 	{
+		//If the system is closed or the user is not Student type, return
 		if (!systemStatus.instance().status())
 		{
 			System.out.println("System is closed");
@@ -27,6 +28,7 @@ public class PrintCoursesEnrolled
 		if (student == null)
 			return;
 		
+		//Print the courses that the student is already enrolled
 		List<ICourseOffering> enrolled = student.getCoursesEnrolled();
 		for (ICourseOffering course : enrolled)
 		{

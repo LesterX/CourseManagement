@@ -12,6 +12,7 @@ public class createUser
 {
 	public static void execute(LoggedInAuthenticatedUser user) throws IOException
 	{
+		//If the system is closed or the user is not Admin type, return
 		if (!systemStatus.instance().status())
 		{
 			System.out.println("System is closed");
@@ -24,6 +25,7 @@ public class createUser
 			return;
 		}
 		
+		//Read user input
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		System.out.println("Enter the user type you want to create:\n1.Admin\n2.Instructor\n3.Student");
 		String in = br.readLine();
@@ -34,6 +36,7 @@ public class createUser
 		System.out.println("Enter the user's ID: ");
 		String id = br.readLine();
 		
+		//Create new user based on the type the user entered
 		switch(in)
 		{
 			case "1":

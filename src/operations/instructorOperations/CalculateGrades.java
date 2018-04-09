@@ -19,6 +19,7 @@ public class CalculateGrades {
 
     public static void execute(LoggedInAuthenticatedUser user) throws IOException
     {
+    	//If the system is closed or the user is not Instructor type, return
     	if (!systemStatus.instance().status())
 		{
 			System.out.println("System is closed");
@@ -32,6 +33,7 @@ public class CalculateGrades {
 
         InstructorModel tutor = (InstructorModel) ModelRegister.getInstance().getRegisteredUser(user.getID());        
         
+        //Read course id from user input
         System.out.println("Enter the course ID:");
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String course_id = br.readLine();
@@ -42,6 +44,8 @@ public class CalculateGrades {
         	System.out.println("Course not found");
         	return;
         }
+        
+        //User needs to be the tutor of this course
         boolean found = false;
         for (ICourseOffering i_course : tutor.getIsTutorOf())
         {
@@ -54,10 +58,12 @@ public class CalculateGrades {
         	return;
         }
         
+        //Read student id from user input
         System.out.println("Enter the student ID: ");
         String student_id = br.readLine();
         StudentModel target = null;
         Double finalGrade;
+        //The student has to be enrolled in this course
         for(StudentModel studentModel : course.getStudentsEnrolled())
             if (studentModel.getID().equals(student_id))
                 target = studentModel;
@@ -68,9 +74,11 @@ public class CalculateGrades {
         System.out.println("Course: " + course.getCourseID() + "\nStudent: " + target.getID() + "    " + target.getName() + "  " + target.getSurname());
         while(weights.hasNext()){
             weights.next();
+            //Initialize the mark to 0 if it is not created yet
             if (marks.getValueWithKey(weights.getCurrentKey()) == null)
             	marks.addToEvalStrategy(weights.getCurrentKey(), 0.0);
             
+            //Calculations
             System.out.println(weights.getCurrentKey() + "      " + marks.getValueWithKey(weights.getCurrentKey()) + " * " + weights.getCurrentValue() / 100);
             finalGrade += weights.getCurrentValue() / 100 * marks.getValueWithKey(weights.getCurrentKey());
         }

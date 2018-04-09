@@ -21,6 +21,7 @@ public class ModifyMarks {
 
     public static void execute(LoggedInAuthenticatedUser user) throws IOException
     {
+    	//If the system is closed or the user is not Instructor type, return
     	if (!systemStatus.instance().status())
 		{
 			System.out.println("System is closed");
@@ -34,6 +35,7 @@ public class ModifyMarks {
         
         InstructorModel tutor = (InstructorModel) ModelRegister.getInstance().getRegisteredUser(user.getID());        
         
+        //Read course id from user input
         System.out.println("Enter the course ID:");
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String course_id = br.readLine();
@@ -44,6 +46,8 @@ public class ModifyMarks {
         	System.out.println("Course not found");
         	return;
         }
+        
+        //The user has to be the tutor of this course
         boolean found = false;
         for (ICourseOffering i_course : tutor.getIsTutorOf())
         {
@@ -56,10 +60,12 @@ public class ModifyMarks {
         	return;
         }
         
+        //Read student id from user input
         System.out.println("Enter the student ID: ");
         String student_id = br.readLine();
         StudentModel student = null;
         
+        //The student has to be enrolled in this course
         for (StudentModel s : course.getStudentsEnrolled())
         {
         	if (s.getID().equals(student_id))
@@ -72,6 +78,7 @@ public class ModifyMarks {
         	return;
         }
         
+        //Same as add marks except the mark to be modified must have been created already
         EvaluationTypes eval_type = student.getEvaluationEntities().get(course);
         Weights weight = course.getEvaluationStrategies().get(eval_type);
         weight.initializeIterator();

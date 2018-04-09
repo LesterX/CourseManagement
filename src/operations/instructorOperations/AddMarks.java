@@ -21,6 +21,7 @@ public class AddMarks {
 
     public static void execute(LoggedInAuthenticatedUser user) throws IOException
     {
+    	//If the system is closed or the user is not Instructor type, return
     	if (!systemStatus.instance().status())
 		{
 			System.out.println("System is closed");
@@ -34,6 +35,7 @@ public class AddMarks {
         
         InstructorModel tutor = (InstructorModel) ModelRegister.getInstance().getRegisteredUser(user.getID());        
         
+        //Read course name from user input
         System.out.println("Enter the course ID:");
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String course_id = br.readLine();
@@ -44,6 +46,8 @@ public class AddMarks {
         	System.out.println("Course not found");
         	return;
         }
+        
+        //Determine whether the user is the tutor of this course
         boolean found = false;
         for (ICourseOffering i_course : tutor.getIsTutorOf())
         {
@@ -56,6 +60,7 @@ public class AddMarks {
         	return;
         }
         
+        //Read student id from user input
         System.out.println("Enter the student ID: ");
         String student_id = br.readLine();
         StudentModel student = null;
@@ -66,16 +71,19 @@ public class AddMarks {
         		student = s;
         }
         
+        //Student has to be enrolled in this course
         if (student == null)
         {
         	System.out.println("Student not found in enrolled list");
         	return;
         }
         
+        //Read weights
         EvaluationTypes eval_type = student.getEvaluationEntities().get(course);
         Weights weight = course.getEvaluationStrategies().get(eval_type);
         weight.initializeIterator();
         
+        //The title for each mark has to be consistent with what is in the weights
         System.out.println("Available evaluation: ");
         while (weight.hasNext())
         {
@@ -83,6 +91,7 @@ public class AddMarks {
         	System.out.println(weight.getCurrentKey());
         }
         
+        //Read title from user input
         System.out.println("Enter the name of the evaluation you want to modify: ");
         String title = br.readLine();
         weight.initializeIterator();
@@ -90,6 +99,7 @@ public class AddMarks {
         while (weight.hasNext())
         {
         	weight.next();
+        	//Find the title of the mark that the user wants to modify
         	if (weight.getCurrentKey().equals(title))
         	{
         		System.out.println("Enther the grade: ");

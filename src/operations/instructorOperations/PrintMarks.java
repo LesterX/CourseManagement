@@ -19,6 +19,7 @@ public class PrintMarks {
 
     public static void execute(LoggedInAuthenticatedUser user) throws IOException
     {
+    	//If the system is closed or the user is not Instructor type, return
     	if (!systemStatus.instance().status())
 		{
 			System.out.println("System is closed");
@@ -30,6 +31,8 @@ public class PrintMarks {
             return;
         }
         InstructorModel tutor = (InstructorModel) ModelRegister.getInstance().getRegisteredUser(user.getID());
+       
+        //Read course id
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Enter course ID: ");
         String course_id = br.readLine();
@@ -39,6 +42,8 @@ public class PrintMarks {
         	System.out.println("Course not found");
         	return;
         }
+        
+        //Needs to be tutor
         boolean found = false;
         for (ICourseOffering i_course : tutor.getIsTutorOf())
         {
@@ -51,15 +56,18 @@ public class PrintMarks {
         	return;
         }
         
+        //User has two choices
         System.out.println("1. Print marks for all students\n2. Print marks for one student");
         String in = br.readLine();
         
         if (in.equals("1"))
         {
+        	//Print marks for all students
         	for (StudentModel student : course.getStudentsEnrolled())
         		CalculateGrades.execute(user, course, student);
         }else if (in.equals("2"))
         {
+        	//Print marks for one student, same as CalculateGrades
             System.out.println("Enter the student ID");
             String student_id = br.readLine();
             StudentModel student = (StudentModel) ModelRegister.getInstance().getRegisteredUser(student_id);

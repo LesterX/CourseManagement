@@ -18,6 +18,7 @@ public class PrintRecord
 	
 	public static void execute(LoggedInAuthenticatedUser user) throws IOException
 	{
+		//If the system is closed or the user is not Student type, return
 		if (!systemStatus.instance().status())
 		{
 			System.out.println("System is closed");
@@ -29,6 +30,7 @@ public class PrintRecord
 			return;
 		}
 		
+		//Read course id from user input
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		System.out.println("Enter the course ID: ");
 		String course_id = br.readLine();
@@ -42,6 +44,7 @@ public class PrintRecord
 			return;
 		}
 
+		//List and calculate grades, the same as what is done in instructor operations
 		double finalGrade = 0.0;
 		System.out.println("Course ID : " + course.getCourseID() + "\nCourse name : " + course.getCourseName());
 		System.out.println("\nStudent ID : " + student.getID() + "\nStudent Name" + student.getName() + " " + student.getSurname());

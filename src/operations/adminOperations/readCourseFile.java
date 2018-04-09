@@ -17,6 +17,7 @@ public class readCourseFile
 {
 	public static void execute(LoggedInAuthenticatedUser user) throws IOException
 	{
+		////If the system is closed or the user is not Admin type, return
 		if (!systemStatus.instance().status())
 		{
 			System.out.println("System is closed");
@@ -29,17 +30,17 @@ public class readCourseFile
 			return;
 		}
 		
+		//Read the file name from user input
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		System.out.println("Enter the name of the course file: ");
 		String file_name = br.readLine();
 		
-//		Create an instance of an OfferingFactory
+		//Given code from testing class
 		OfferingFactory factory = new OfferingFactory();
 		try
 		{
 			br = new BufferedReader(new FileReader(new File(file_name)));
-			
-	//		Use the factory to populate as many instances of courses as many files we've got.
+
 			CourseOffering	courseOffering = factory.createCourseOffering(br);
 			
 			ModelRegister.getInstance().registerCourse(courseOffering.getCourseID(), courseOffering);

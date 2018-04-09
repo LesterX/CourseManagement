@@ -14,6 +14,7 @@ public class PrintAllUsers
 {
 	public static void execute(LoggedInAuthenticatedUser user) throws IOException
 	{
+		////If the system is closed or the user is not Admin type, return
 		if (!systemStatus.instance().status())
 		{
 			System.out.println("System is closed");
@@ -26,6 +27,7 @@ public class PrintAllUsers
 			return;
 		}
 		
+		//Read users from register
 		ArrayList<SystemUserModel> users = (ArrayList<SystemUserModel>) ModelRegister.getInstance().getAllUsers();
 		Iterator<SystemUserModel> iter = users.iterator();
 		while (iter.hasNext())

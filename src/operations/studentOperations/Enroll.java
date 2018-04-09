@@ -22,6 +22,7 @@ public class Enroll
 	
 	public static void execute(LoggedInAuthenticatedUser user) throws IOException
 	{
+		//If the system is closed or the user is not Student type, return
 		if (!systemStatus.instance().status())
 		{
 			System.out.println("System is closed");
@@ -38,6 +39,7 @@ public class Enroll
 			StudentModel student = (StudentModel) ModelRegister.getInstance().getRegisteredUser(user.getID());
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 			
+			//Read course id from user input
 			System.out.println("Enter the course ID you want to enroll:");
 			String course_id = "";
 			
@@ -46,20 +48,26 @@ public class Enroll
 			CourseOffering course = ModelRegister.getInstance().getRegisteredCourse(course_id);
 			if (course == null)
 			{
+				//Return if course if not found
 				System.out.println("Course not found");
 				return;
 			}else if (!found_in_list(student, course.getStudentsAllowedToEnroll()))
 			{
+				//Return if the student is not allowed to enroll
 				System.out.println("You are not allowed to enroll this course");
 				return;
 			}else if (found_in_list(student, course.getStudentsEnrolled()))
 			{
+				//Return if the student is already enrolled in this course
 				System.out.println("You are already enrolled in this course");
 				return;
 			}else
 			{
+				//Add the record
 				course.getStudentsEnrolled().add(student);
 				student.getCoursesEnrolled().add(course);
+				
+				//Initialize the student's marks if it is not created
 				if (student.getPerCourseMarks() == null)
 					student.setPerCourseMarks(new HashMap<ICourseOffering,Marks>());
 
@@ -67,6 +75,7 @@ public class Enroll
 				student_marks.put(course, new Marks());
 				student.setPerCourseMarks(student_marks);
 				
+				//Enroll the student into this course in the register
 				ModelRegister.getInstance().registerCourse(student.getID(), course);
 			}
 		}
