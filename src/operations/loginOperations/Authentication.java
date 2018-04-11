@@ -18,9 +18,17 @@ public class Authentication
 		//Search the user's information in the register
 		SystemUserModel user_registered = ModelRegister.getInstance().getRegisteredUser(ID);
 		
+
+		
 		//If not found, return
 		if (user_registered == null)
 			return null;
+		
+		if (!(first_name.equals(user_registered.getName()) && surname.equals(user_registered.getSurname()) && ID.equals(user_registered.getID())))
+		{
+			System.out.println("Invalid name or ID");
+			return null;
+		}
 		
 		//Create the LoggedInAuthenticatedUser based on their user type
 		switch (user_registered.get_type())

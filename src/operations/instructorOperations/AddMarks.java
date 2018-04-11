@@ -65,8 +65,10 @@ public class AddMarks {
         String student_id = br.readLine();
         StudentModel student = null;
         
+        System.out.println("Enrolled List");
         for (StudentModel s : course.getStudentsEnrolled())
         {
+        	System.out.println(s.getID());
         	if (s.getID().equals(student_id))
         		student = s;
         }
