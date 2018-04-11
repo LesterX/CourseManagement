@@ -1,8 +1,8 @@
 Course Management System
 ============
-The University of Western Ontario
-Computer Science 2212 Group Project
-Group 45
+The University of Western Ontario</br>
+Computer Science 2212 Group Project</br>
+Group 45</br>
 ---------
 Group Members:</br>
 Yimin Xu</br>

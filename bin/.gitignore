@@ -1,5 +1,3 @@
-/System/
-/adminServices/
 /authenticatedUsers/
 /authenticationServer/
 /customDatatypes/
@@ -7,8 +5,7 @@
 /offerings/
 /operations/
 /registrar/
+/system/
 /systemUserModelFactories/
 /systemUsers/
-/testHarness/
-/system/
 /test/

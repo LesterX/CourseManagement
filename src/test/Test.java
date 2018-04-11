@@ -10,7 +10,7 @@ Course Management System
 		Yimin Xu		250876566
 */
 package test;
-//Github test comment
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
