@@ -7,6 +7,8 @@ public class AdminModel implements IAdminModel{
 	private String ID;
 	private String type = "Admin";
 	
+	public AdminModel() {}
+	
 	public String get_type()
 	{
 		return type;
