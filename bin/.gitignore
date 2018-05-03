@@ -1,11 +1,3 @@
-/authenticatedUsers/
-/authenticationServer/
-/customDatatypes/
-/loggedInUserFactory/
-/offerings/
-/operations/
-/registrar/
-/system/
-/systemUserModelFactories/
-/systemUsers/
+/database_server.class
+/database/
 /test/

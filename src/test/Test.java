@@ -27,11 +27,12 @@ import registrar.ModelRegister;
 import system.systemStatus;
 import systemUsers.AdminModel;
 import authenticatedUsers.LoggedInAuthenticatedUser;
+import database.DatabaseServer;
 
 public class Test {
 
 	public static void main(String[] args) throws IOException{
-		
+		/**
 		//Load the course file into the registrar, can also be done by admin service 
 //		Create an instance of an OfferingFactory
 		OfferingFactory factory = new OfferingFactory();
@@ -64,7 +65,7 @@ public class Test {
 				System.out.println(student.getName() + "\t\t -> " + course2.getCourseName());	
 			}
 		}
-		*/
+
 		//Add a admin account because there is no admin user in the input files
 		AdminModel admin = new AdminModel();
 		admin.setID("0000");
@@ -215,5 +216,10 @@ public class Test {
 				user = Login.execute();
 			}
 		}
+		*/
+		
+		DatabaseServer db = new DatabaseServer("course_management");
+		db.clear_tables();
+		db.initiate();
 	}
 }
