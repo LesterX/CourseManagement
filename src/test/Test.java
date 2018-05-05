@@ -26,6 +26,7 @@ import operations.studentOperations.*;
 import registrar.ModelRegister;
 import system.systemStatus;
 import systemUsers.AdminModel;
+import systemUsers.SystemUserModel;
 import authenticatedUsers.LoggedInAuthenticatedUser;
 import database.IDatabase;
 import database.DatabaseServer;
@@ -228,6 +229,5 @@ public class Test {
 		db.insert_course("3360", "Intermediate Accounting", 1);
 		db.add_tutor("0001", "3360");
 		db.add_student_allowed("0002", "3360");
-		System.out.println(db.authenticate("0000", "0000"));
 	}
 }

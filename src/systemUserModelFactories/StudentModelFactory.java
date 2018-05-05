@@ -8,11 +8,12 @@ import java.util.List;
 import java.util.Map;
 
 import customDatatypes.EvaluationTypes;
+import database.IDatabase;
 import offerings.ICourseOffering;
 import registrar.ModelRegister;
 import systemUsers.StudentModel;
 
-public class StudentModelFactory implements SystemUserModelFactory {
+public class StudentModelFactory implements ISystemUserModelFactory {
 
 	public StudentModel createSystemUserModel(BufferedReader br, ICourseOffering course) {
 		// TODO Auto-generated method stub
@@ -44,5 +45,15 @@ public class StudentModelFactory implements SystemUserModelFactory {
 			System.out.println(ioe.getMessage() + "exception thrown at StudentModelCreation"); 
 			return null;
 		}
+	}
+	
+	public void generate_from_file(String file_name)
+	{
+		
+	}
+	
+	public void generate_from_db(IDatabase db)
+	{
+		
 	}
 }

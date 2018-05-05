@@ -4,11 +4,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import database.IDatabase;
 import offerings.ICourseOffering;
 import registrar.ModelRegister;
 import systemUsers.InstructorModel;
 
-public class InstructorModelFactory implements SystemUserModelFactory {
+public class InstructorModelFactory implements ISystemUserModelFactory {
 
 	public InstructorModel createSystemUserModel(BufferedReader br, ICourseOffering course) {
 		// TODO Auto-generated method stub
@@ -31,6 +32,16 @@ public class InstructorModelFactory implements SystemUserModelFactory {
 			System.out.println(ioe.getMessage());
 			return null;
 		}
+	}
+	
+	public void generate_from_file(String file_name)
+	{
+		
+	}
+	
+	public void generate_from_db(IDatabase db)
+	{
+		
 	}
 
 }

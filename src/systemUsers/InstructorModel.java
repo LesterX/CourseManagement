@@ -18,6 +18,7 @@ public class InstructorModel implements IInstructorModel {
 	private String name;
 	private String surname;
 	private String ID;
+	private String password;
 	private List<ICourseOffering> isTutorOf;
 	
 	public InstructorModel(){
@@ -50,6 +51,16 @@ public class InstructorModel implements IInstructorModel {
 	
 	public void setID(String iD) {
 		ID = iD;
+	}
+	
+	public String getPassword()
+	{
+		return password;
+	}
+	
+	public void setPassword(String p)
+	{
+		password = p;
 	}
 	
 	public List<ICourseOffering> getIsTutorOf() {

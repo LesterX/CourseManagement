@@ -5,6 +5,7 @@ public class AdminModel implements IAdminModel{
 	private String name;
 	private String surname;
 	private String ID;
+	private String password;
 	private String type = "Admin";
 	
 	public AdminModel() {}
@@ -38,4 +39,13 @@ public class AdminModel implements IAdminModel{
 		ID = iD;
 	}
 
+	public String getPassword()
+	{
+		return password;
+	}
+	
+	public void setPassword(String p)
+	{
+		password = p;
+	}
 }

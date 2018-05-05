@@ -16,6 +16,7 @@ public class StudentModel implements IStudentModel{
 	private String name;
 	private String surname;
 	private String ID;
+	private String password;
 	private List<ICourseOffering> coursesAllowed;
 	private List<ICourseOffering> coursesEnrolled;
 	private Map<ICourseOffering, EvaluationTypes> evaluationEntities;
@@ -23,6 +24,8 @@ public class StudentModel implements IStudentModel{
 //	the student has enrolled in.
 	private Map<ICourseOffering, Marks> perCourseMarks;
 	private NotificationTypes notificationType;
+	
+	public StudentModel() {}
 	
 	public String get_type()
 	{
@@ -61,6 +64,16 @@ public class StudentModel implements IStudentModel{
 	
 	public void setID(String iD) {
 		ID = iD;
+	}
+	
+	public String getPassword()
+	{
+		return password;
+	}
+	
+	public void setPassword(String p)
+	{
+		password = p;
 	}
 	
 	public List<ICourseOffering> getCoursesAllowed() {

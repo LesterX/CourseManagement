@@ -246,8 +246,6 @@ public class DatabaseServer implements IDatabase
 				return;
 			}
 			
-			System.out.println("Check");
-			
 			//Insert into database
 			sql = "INSERT INTO INSTRUCTOR_COURSE(INSTRUCTOR_ID,COURSE_ID)"
 					+ "VALUES(?,?);";
@@ -320,13 +318,31 @@ public class DatabaseServer implements IDatabase
 		}
 	}
 	
+	private void update(String table, String column, String value, String id)
+	{
+		try
+		{
+			String sql = "UPDATE ? SET ? = '?' WHERE ID = '?';";
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, table);
+			ps.setString(2, column);
+			ps.setString(3, value);
+			ps.setString(4, id);
+			ps.executeUpdate();
+		}catch (SQLException e)
+		{
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	/**
+	 * Method removed: creating new user object may cause problems related to the user objects in registrar 
 	//Return the System User Model
 	public SystemUserModel get_user(String id)
 	{
 		SystemUserModel user = null;
 		try
 		{
-			
 			st = conn.createStatement();
 			String sql = "SELECT * FROM USER WHERE ID = '" + id + "';";
 			rs = st.executeQuery(sql);
@@ -337,27 +353,33 @@ public class DatabaseServer implements IDatabase
 			
 			String type = rs.getString(5);
 			
+			//Return system user model depending on their user type
+			//List and Maps properties will be generated in Factory class 
 			switch (type)
 			{
 				case "Admin":
-				{
+				{	
 					user = new AdminModel();
-					user.setID(id);
-					user.setName(rs.getString(3));
-					user.setSurname(rs.getString(4));
+					break;
 				}
 				case "Instructor":
 				{
 					user = new InstructorModel();
-					user.setID(id);
-					user.setName(rs.getString(3));
-					user.setSurname(rs.getString(4));
-					
-					List<ICourseOffering> is_tutor_of = new ArrayList<ICourseOffering>();
-					sql = "SELECT * FROM ";
+					break;
 				}
+				case "Student":
+				{
+					user = new StudentModel();
+					break;
+				}
+				default:
+					return null;
 			}
 			
+			user.setID(id);
+			user.setName(rs.getString(3));
+			user.setSurname(rs.getString(4));
+
 		}catch (SQLException e)
 		{
 			System.out.println(e.getMessage());
@@ -365,4 +387,5 @@ public class DatabaseServer implements IDatabase
 		
 		return user;
 	}
+	*/
 }

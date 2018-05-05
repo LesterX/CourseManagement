@@ -13,6 +13,6 @@ public interface IDatabase
 	void add_tutor(String instructor_id, String course_id);
 	void add_student_allowed(String student_id, String course_id);
 	void add_student_enrolled(String student_id, String course_id);
-	SystemUserModel get_user(String id);
+	//SystemUserModel get_user(String id);
 	
 }

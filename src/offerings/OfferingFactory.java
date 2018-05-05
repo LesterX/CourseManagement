@@ -1,7 +1,11 @@
 package offerings;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -11,8 +15,10 @@ import registrar.ModelRegister;
 import systemUserModelFactories.InstructorModelFactory;
 import systemUserModelFactories.StudentModelFactory;
 import systemUserModelFactories.SystemUserModelFactory;
+import systemUserModelFactories.ISystemUserModelFactory;
 import systemUsers.InstructorModel;
 import systemUsers.StudentModel;
+import systemUsers.SystemUserModel;
 
 public class OfferingFactory {
 
@@ -40,7 +46,7 @@ public class OfferingFactory {
 			course = ModelRegister.getInstance().getRegisteredCourse(line.split("\t")[1]);
 			line = br.readLine();
 //			We create an instance of an InstructorModelFactory to create InstructorModel instances
-			SystemUserModelFactory theFactory = new InstructorModelFactory();
+			ISystemUserModelFactory theFactory = new InstructorModelFactory();
 			for (int i=0;i<Integer.parseInt(line.split("\t")[2]);i++) {
 //				the actual create instance method call
 				course.getInstructor().add((InstructorModel)theFactory.createSystemUserModel(br, course));
@@ -78,5 +84,66 @@ public class OfferingFactory {
 		}
 	}
 	
+	//Create course from a line in a file
+	//Each course input should have its own file
+	public CourseOffering generate_from_file(String file_name)
+	{
+		try 
+		{
+			BufferedReader br = new BufferedReader(new FileReader(new File(file_name)));
+			String id = br.readLine();
+			String name = br.readLine();
+			int semester = Integer.parseInt(br.readLine());
+			String line = br.readLine();
+			List<String> instructors = new ArrayList<String>();
+			
+			while (!line.equals("Students Allowed"))
+			{
+				instructors.add(line);
+				line = br.readLine();
+			}
+			
+			line = br.readLine();
+			List<String> allowed = new ArrayList<String>();
+			
+			while(!line.equals("Student Enrolled"))
+			{
+				allowed.add(line);
+				line = br.readLine();
+			}
+			
+			line = br.readLine();
+			List<String> enrolled = new ArrayList<String>();
+			
+			while(!line.equals("Evaluation"))
+			{
+				enrolled.add(line);
+				line = br.readLine();
+			}
+			
+			line = br.readLine();
+			while (line.equals("FC")||line.equals("FA")||line.equals("PC")||line.equals("PA"))
+			{
+				EvaluationTypes et = EvaluationTypes.fromString(line);
+				Weights w = new Weights();
+				
+				while (!(line.equals("FC")||line.equals("FA")||line.equals("PC")||line.equals("PA")))
+				{
+					String[] l = line.split(" ");
+					w.addToEvalStrategy(l[0],Double.parseDouble(l[1])/100);
+				}
+			}
+			
+		} catch (FileNotFoundException e) 
+		{
+			System.out.println(e.getMessage());
+		} catch (IOException e)
+		{
+			System.out.println(e.getMessage());
+		}
+	
+		
+		return null;
+	}
 	
 }
