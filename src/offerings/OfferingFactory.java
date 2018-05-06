@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -90,37 +91,42 @@ public class OfferingFactory {
 	{
 		try 
 		{
+			//Read course data from a file with preset format
 			BufferedReader br = new BufferedReader(new FileReader(new File(file_name)));
 			String id = br.readLine();
 			String name = br.readLine();
 			int semester = Integer.parseInt(br.readLine());
 			String line = br.readLine();
-			List<String> instructors = new ArrayList<String>();
+			List<InstructorModel> instructors = new ArrayList<InstructorModel>();
 			
 			while (!line.equals("Students Allowed"))
 			{
-				instructors.add(line);
+				InstructorModel tutor = (InstructorModel) ModelRegister.getInstance().getRegisteredUser(line);
+				instructors.add(tutor);
 				line = br.readLine();
 			}
 			
 			line = br.readLine();
-			List<String> allowed = new ArrayList<String>();
+			List<StudentModel> allowed = new ArrayList<StudentModel>();
 			
 			while(!line.equals("Student Enrolled"))
 			{
-				allowed.add(line);
+				StudentModel student = (StudentModel) ModelRegister.getInstance().getRegisteredUser(line);
+				allowed.add(student);
 				line = br.readLine();
 			}
 			
 			line = br.readLine();
-			List<String> enrolled = new ArrayList<String>();
+			List<StudentModel> enrolled = new ArrayList<StudentModel>();
 			
 			while(!line.equals("Evaluation"))
 			{
-				enrolled.add(line);
+				StudentModel student = (StudentModel) ModelRegister.getInstance().getRegisteredUser(line);
+				enrolled.add(student);
 				line = br.readLine();
 			}
 			
+			Map<EvaluationTypes, Weights> strategy = new HashMap<EvaluationTypes, Weights>();
 			line = br.readLine();
 			while (line.equals("FC")||line.equals("FA")||line.equals("PC")||line.equals("PA"))
 			{
@@ -132,8 +138,21 @@ public class OfferingFactory {
 					String[] l = line.split(" ");
 					w.addToEvalStrategy(l[0],Double.parseDouble(l[1])/100);
 				}
+				
+				strategy.put(et, w);
 			}
 			
+			//Create new course
+			CourseOffering course = new CourseOffering();
+			course.setCourseID(id);
+			course.setSemester(semester);
+			course.setCourseName(name);
+			course.setInstructor(instructors);
+			course.setStudentsAllowedToEnroll(allowed);
+			course.setStudentsEnrolled(enrolled);
+			course.setEvaluationStrategies(strategy);
+			
+			return course;
 		} catch (FileNotFoundException e) 
 		{
 			System.out.println(e.getMessage());
