@@ -1,6 +1,6 @@
 package operations.studentOperations;
 
-import registrar.ModelRegister;
+import registrar.Register;
 import system.systemStatus;
 import systemUsers.StudentModel;
 import authenticatedUsers.LoggedInAuthenticatedUser;
@@ -35,8 +35,8 @@ public class PrintRecord
 		System.out.println("Enter the course ID: ");
 		String course_id = br.readLine();
 		
-		CourseOffering course = ModelRegister.getInstance().getRegisteredCourse(course_id);
-		StudentModel student = (StudentModel) ModelRegister.getInstance().getRegisteredUser(user.getID());
+		CourseOffering course = Register.getInstance().getRegisteredCourse(course_id);
+		StudentModel student = (StudentModel) Register.getInstance().getRegisteredUser(user.getID());
 		
 		if (course == null)
 		{
@@ -92,7 +92,7 @@ public class PrintRecord
 			throw new RuntimeException("Only instructors can print record");
 		}
 
-		CourseOffering course = ModelRegister.getInstance().getRegisteredCourse(course_id);
+		CourseOffering course = Register.getInstance().getRegisteredCourse(course_id);
 
 		if (course == null)
 		{

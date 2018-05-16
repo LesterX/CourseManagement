@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import authenticatedUsers.LoggedInAuthenticatedUser;
-import registrar.ModelRegister;
+import registrar.Register;
 import system.systemStatus;
 import systemUsers.SystemUserModel;
 
@@ -28,7 +28,7 @@ public class PrintAllUsers
 		}
 		
 		//Read users from register
-		ArrayList<SystemUserModel> users = (ArrayList<SystemUserModel>) ModelRegister.getInstance().getAllUsers();
+		ArrayList<SystemUserModel> users = (ArrayList<SystemUserModel>) Register.getInstance().getAllUsers();
 		Iterator<SystemUserModel> iter = users.iterator();
 		while (iter.hasNext())
 		{

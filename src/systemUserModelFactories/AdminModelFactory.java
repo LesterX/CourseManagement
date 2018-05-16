@@ -8,7 +8,7 @@ import java.io.IOException;
 
 import database.IDatabase;
 import offerings.ICourseOffering;
-import registrar.ModelRegister;
+import registrar.Register;
 import systemUsers.AdminModel;
 import systemUsers.InstructorModel;
 import systemUsers.StudentModel;
@@ -73,7 +73,7 @@ public class AdminModelFactory implements ISystemUserModelFactory {
 				user.setName(name);
 				user.setSurname(surname);
 				user.setPassword(password);
-				ModelRegister.getInstance().registerUser(id, user);
+				Register.getInstance().registerUser(id, user);
 			}
 		} catch (FileNotFoundException e) 
 		{

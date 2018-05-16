@@ -12,7 +12,7 @@ import java.util.HashMap;
 
 import customDatatypes.EvaluationTypes;
 import customDatatypes.Weights;
-import registrar.ModelRegister;
+import registrar.Register;
 import systemUserModelFactories.InstructorModelFactory;
 import systemUserModelFactories.StudentModelFactory;
 import systemUserModelFactories.SystemUserModelFactory;
@@ -31,7 +31,7 @@ public class OfferingFactory {
 		CourseOffering course = new CourseOffering();
 //		Using the ModelRegister - its a utility class that allows us to keep track of which IDs have already been populated
 //		if we don't have it registered
-		if(!ModelRegister.getInstance().checkIfCourseHasAlreadyBeenCreated(line.split("\t")[1])){
+		if(!Register.getInstance().checkIfCourseHasAlreadyBeenCreated(line.split("\t")[1])){
 //			we populate the course object and initialize all fields
 			course.setCourseName(line.split("\t")[0]);
 			course.setCourseID(line.split("\t")[1]);
@@ -41,10 +41,10 @@ public class OfferingFactory {
 			course.setEvaluationStrategies(new HashMap<EvaluationTypes, Weights>());
 			course.setStudentsEnrolled(new ArrayList<StudentModel>());
 //			and add the new course to the register
-			ModelRegister.getInstance().registerCourse(course.getCourseID(), course);
+			Register.getInstance().registerCourse(course.getCourseID(), course);
 		}
 //			otherwise we load the existing instance from the register
-			course = ModelRegister.getInstance().getRegisteredCourse(line.split("\t")[1]);
+			course = Register.getInstance().getRegisteredCourse(line.split("\t")[1]);
 			line = br.readLine();
 //			We create an instance of an InstructorModelFactory to create InstructorModel instances
 			ISystemUserModelFactory theFactory = new InstructorModelFactory();
@@ -101,7 +101,7 @@ public class OfferingFactory {
 			
 			while (!line.equals("Students Allowed"))
 			{
-				InstructorModel tutor = (InstructorModel) ModelRegister.getInstance().getRegisteredUser(line);
+				InstructorModel tutor = (InstructorModel) Register.getInstance().getRegisteredUser(line);
 				instructors.add(tutor);
 				line = br.readLine();
 			}
@@ -111,7 +111,7 @@ public class OfferingFactory {
 			
 			while(!line.equals("Student Enrolled"))
 			{
-				StudentModel student = (StudentModel) ModelRegister.getInstance().getRegisteredUser(line);
+				StudentModel student = (StudentModel) Register.getInstance().getRegisteredUser(line);
 				allowed.add(student);
 				line = br.readLine();
 			}
@@ -121,7 +121,7 @@ public class OfferingFactory {
 			
 			while(!line.equals("Evaluation"))
 			{
-				StudentModel student = (StudentModel) ModelRegister.getInstance().getRegisteredUser(line);
+				StudentModel student = (StudentModel) Register.getInstance().getRegisteredUser(line);
 				enrolled.add(student);
 				line = br.readLine();
 			}

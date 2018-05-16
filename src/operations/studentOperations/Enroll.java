@@ -1,6 +1,6 @@
 package operations.studentOperations;
 
-import registrar.ModelRegister;
+import registrar.Register;
 import system.systemStatus;
 import offerings.CourseOffering;
 import offerings.ICourseOffering;
@@ -36,7 +36,7 @@ public class Enroll
 		else
 		{
 			user = (LoggedInStudent) user;
-			StudentModel student = (StudentModel) ModelRegister.getInstance().getRegisteredUser(user.getID());
+			StudentModel student = (StudentModel) Register.getInstance().getRegisteredUser(user.getID());
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 			
 			//Read course id from user input
@@ -45,7 +45,7 @@ public class Enroll
 			
 			course_id = br.readLine();
 			
-			CourseOffering course = ModelRegister.getInstance().getRegisteredCourse(course_id);
+			CourseOffering course = Register.getInstance().getRegisteredCourse(course_id);
 			if (course == null)
 			{
 				//Return if course if not found
@@ -76,7 +76,7 @@ public class Enroll
 				student.setPerCourseMarks(student_marks);
 				
 				//Enroll the student into this course in the register
-				ModelRegister.getInstance().registerCourse(student.getID(), course);
+				Register.getInstance().registerCourse(student.getID(), course);
 			}
 		}
 	}
@@ -92,10 +92,10 @@ public class Enroll
 		else
 		{
 			user = (LoggedInStudent) user;
-			StudentModel student = (StudentModel) ModelRegister.getInstance().getRegisteredUser(user.getID());
+			StudentModel student = (StudentModel) Register.getInstance().getRegisteredUser(user.getID());
 			String course_id = courseID;
 			
-			CourseOffering course = ModelRegister.getInstance().getRegisteredCourse(course_id);
+			CourseOffering course = Register.getInstance().getRegisteredCourse(course_id);
 			if (course == null)
 			{
 				System.out.println("Course not found");
@@ -112,7 +112,7 @@ public class Enroll
 			{
 				course.getStudentsEnrolled().add(student);
 				student.getCoursesEnrolled().add(course);
-				ModelRegister.getInstance().registerCourse(student.getID(), course);
+				Register.getInstance().registerCourse(student.getID(), course);
 			}
 		}
 	}
@@ -127,7 +127,7 @@ public class Enroll
 		else
 		{
 			user = (LoggedInStudent) user;
-			StudentModel student = (StudentModel) ModelRegister.getInstance().getRegisteredUser(user.getID());
+			StudentModel student = (StudentModel) Register.getInstance().getRegisteredUser(user.getID());
 			
 			System.out.println(student.getName());
 			
@@ -147,7 +147,7 @@ public class Enroll
 			{
 				course.getStudentsEnrolled().add(student);
 				student.getCoursesEnrolled().add(course);
-				ModelRegister.getInstance().registerCourse(student.getID(), course);
+				Register.getInstance().registerCourse(student.getID(), course);
 			}
 		}
 	}

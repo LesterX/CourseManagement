@@ -7,7 +7,7 @@ import authenticatedUsers.LoggedInInstructor;
 import authenticatedUsers.LoggedInStudent;
 import authenticationServer.AuthenticationToken;
 import systemUsers.SystemUserModel;
-import registrar.ModelRegister;
+import registrar.Register;
 
 public class Authentication 
 {
@@ -16,7 +16,7 @@ public class Authentication
 	public static LoggedInAuthenticatedUser execute(String first_name, String surname, String ID) throws IOException
 	{
 		//Search the user's information in the register
-		SystemUserModel user_registered = ModelRegister.getInstance().getRegisteredUser(ID);
+		SystemUserModel user_registered = Register.getInstance().getRegisteredUser(ID);
 		
 
 		

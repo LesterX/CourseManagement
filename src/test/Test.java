@@ -23,7 +23,7 @@ import operations.loginOperations.*;
 import operations.adminOperations.*;
 import operations.instructorOperations.*;
 import operations.studentOperations.*;
-import registrar.ModelRegister;
+import registrar.Register;
 import system.systemStatus;
 import systemUsers.AdminModel;
 import systemUsers.SystemUserModel;

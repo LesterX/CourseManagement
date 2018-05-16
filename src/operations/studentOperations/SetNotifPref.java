@@ -2,7 +2,7 @@ package operations.studentOperations;
 
 import authenticatedUsers.LoggedInAuthenticatedUser;
 import systemUsers.StudentModel;
-import registrar.ModelRegister;
+import registrar.Register;
 import system.systemStatus;
 import customDatatypes.NotificationTypes;
 
@@ -29,7 +29,7 @@ public class SetNotifPref
 			return;
 		}
 		
-		StudentModel student = (StudentModel) ModelRegister.getInstance().getRegisteredUser(user.getID());
+		StudentModel student = (StudentModel) Register.getInstance().getRegisteredUser(user.getID());
 		
 		student.setNotificationType(np);
 	}
@@ -44,7 +44,7 @@ public class SetNotifPref
 			return;
 		}
 		
-		StudentModel student = (StudentModel) ModelRegister.getInstance().getRegisteredUser(user.getID());
+		StudentModel student = (StudentModel) Register.getInstance().getRegisteredUser(user.getID());
 		
 		//Read notification type from user input
 		if (np_string.toUpperCase().equals("EMAIL"))
@@ -70,7 +70,7 @@ public class SetNotifPref
 			return;
 		}
 		
-		StudentModel student = (StudentModel) ModelRegister.getInstance().getRegisteredUser(user.getID());
+		StudentModel student = (StudentModel) Register.getInstance().getRegisteredUser(user.getID());
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		

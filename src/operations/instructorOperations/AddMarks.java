@@ -6,7 +6,7 @@ import customDatatypes.Marks;
 import customDatatypes.Weights;
 import offerings.CourseOffering;
 import offerings.ICourseOffering;
-import registrar.ModelRegister;
+import registrar.Register;
 import system.systemStatus;
 import systemUsers.InstructorModel;
 import systemUsers.StudentModel;
@@ -33,14 +33,14 @@ public class AddMarks {
             return;
         }
         
-        InstructorModel tutor = (InstructorModel) ModelRegister.getInstance().getRegisteredUser(user.getID());        
+        InstructorModel tutor = (InstructorModel) Register.getInstance().getRegisteredUser(user.getID());        
         
         //Read course name from user input
         System.out.println("Enter the course ID:");
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String course_id = br.readLine();
 
-        CourseOffering course = ModelRegister.getInstance().getRegisteredCourse(course_id);
+        CourseOffering course = Register.getInstance().getRegisteredCourse(course_id);
         if (course == null)
         {
         	System.out.println("Course not found");
@@ -133,7 +133,7 @@ public class AddMarks {
             System.out.println(("Only instructors can modify marks"));
             return;
         }
-        InstructorModel tutor = (InstructorModel) ModelRegister.getInstance().getRegisteredUser(user.getID());
+        InstructorModel tutor = (InstructorModel) Register.getInstance().getRegisteredUser(user.getID());
         boolean found = false;
         for (ICourseOffering i_course : tutor.getIsTutorOf())
         {

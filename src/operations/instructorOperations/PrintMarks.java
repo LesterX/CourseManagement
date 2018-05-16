@@ -8,7 +8,7 @@ import authenticatedUsers.LoggedInAuthenticatedUser;
 import customDatatypes.Marks;
 import offerings.CourseOffering;
 import offerings.ICourseOffering;
-import registrar.ModelRegister;
+import registrar.Register;
 import system.systemStatus;
 import systemUsers.InstructorModel;
 import systemUsers.StudentModel;
@@ -30,13 +30,13 @@ public class PrintMarks {
             System.out.println(("Only instructors can print marks"));
             return;
         }
-        InstructorModel tutor = (InstructorModel) ModelRegister.getInstance().getRegisteredUser(user.getID());
+        InstructorModel tutor = (InstructorModel) Register.getInstance().getRegisteredUser(user.getID());
        
         //Read course id
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Enter course ID: ");
         String course_id = br.readLine();
-        CourseOffering course = ModelRegister.getInstance().getRegisteredCourse(course_id);
+        CourseOffering course = Register.getInstance().getRegisteredCourse(course_id);
         if (course == null)
         {
         	System.out.println("Course not found");
@@ -70,7 +70,7 @@ public class PrintMarks {
         	//Print marks for one student, same as CalculateGrades
             System.out.println("Enter the student ID");
             String student_id = br.readLine();
-            StudentModel student = (StudentModel) ModelRegister.getInstance().getRegisteredUser(student_id);
+            StudentModel student = (StudentModel) Register.getInstance().getRegisteredUser(student_id);
             CalculateGrades.execute(user, course, student);
         }
     }
@@ -82,7 +82,7 @@ public class PrintMarks {
             throw new RuntimeException("Only instructors can modify marks");
         }
 
-        StudentModel student = (StudentModel) ModelRegister.getInstance().getRegisteredUser(user.getID());
+        StudentModel student = (StudentModel) Register.getInstance().getRegisteredUser(user.getID());
 
         if (course == null)
         {
@@ -109,8 +109,8 @@ public class PrintMarks {
 
         }
 
-        CourseOffering course = ModelRegister.getInstance().getRegisteredCourse(course_id);
-        StudentModel student = (StudentModel) ModelRegister.getInstance().getRegisteredUser(user.getID());
+        CourseOffering course = Register.getInstance().getRegisteredCourse(course_id);
+        StudentModel student = (StudentModel) Register.getInstance().getRegisteredUser(user.getID());
 
         if (course == null)
         {

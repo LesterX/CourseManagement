@@ -10,7 +10,7 @@ import java.util.Map;
 import customDatatypes.EvaluationTypes;
 import database.IDatabase;
 import offerings.ICourseOffering;
-import registrar.ModelRegister;
+import registrar.Register;
 import systemUsers.StudentModel;
 
 public class StudentModelFactory implements ISystemUserModelFactory {
@@ -20,7 +20,7 @@ public class StudentModelFactory implements ISystemUserModelFactory {
 		StudentModel newStudent;
 		try{
 		String line = br.readLine();
-		if(!ModelRegister.getInstance().checkIfUserHasAlreadyBeenCreated(line.split("\t")[2])){
+		if(!Register.getInstance().checkIfUserHasAlreadyBeenCreated(line.split("\t")[2])){
 //			Consume a line and populate the available fields as well as initialize all fields that need initialization
 //			notice that we are using ModelRegister which is used to keep track of previously created instances with specific IDs
 			newStudent = new StudentModel();
@@ -31,9 +31,9 @@ public class StudentModelFactory implements ISystemUserModelFactory {
 			newStudent.setCoursesAllowed(toInput);
 			Map<ICourseOffering, EvaluationTypes> toInput1 = new HashMap<ICourseOffering, EvaluationTypes>();
 			newStudent.setEvaluationEntities(toInput1);
-			ModelRegister.getInstance().registerUser(newStudent.getID(), newStudent);
+			Register.getInstance().registerUser(newStudent.getID(), newStudent);
 		} 	
-			newStudent = (StudentModel) ModelRegister.getInstance().getRegisteredUser(line.split("\t")[2]);
+			newStudent = (StudentModel) Register.getInstance().getRegisteredUser(line.split("\t")[2]);
 			(newStudent.getCoursesAllowed()).add(course);
 			newStudent.getEvaluationEntities().put(course, EvaluationTypes.fromString(line.split("\t")[3]));
 //			for debugging purposes

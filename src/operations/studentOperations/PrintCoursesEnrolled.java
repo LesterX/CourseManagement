@@ -2,7 +2,7 @@ package operations.studentOperations;
 
 import authenticatedUsers.LoggedInAuthenticatedUser;
 import systemUsers.StudentModel;
-import registrar.ModelRegister;
+import registrar.Register;
 import system.systemStatus;
 import offerings.ICourseOffering;
 import java.util.List;
@@ -23,7 +23,7 @@ public class PrintCoursesEnrolled
 			return;
 		}
 		
-		StudentModel student = (StudentModel) ModelRegister.getInstance().getRegisteredUser(user.getID());
+		StudentModel student = (StudentModel) Register.getInstance().getRegisteredUser(user.getID());
 		
 		if (student == null)
 			return;

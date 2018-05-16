@@ -15,26 +15,27 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import offerings.CourseOffering;
+import offerings.OfferingFactory;
 import systemUserModelFactories.SystemUserModelFactory;
 import systemUsers.SystemUserModel;
 
-public class ModelRegister {
+public class Register {
 //	Map maintaining copies of existing SystemUserModel objects mapped using their Unique IDs
 	private Map<String, SystemUserModel> modelRegister = new HashMap<String, SystemUserModel>();
 //	Map maintaining copies of existing CourseOffering objects mapped using their Unique IDs
 	private Map<String, CourseOffering> courseRegister = new HashMap<String, CourseOffering>();
 	
 //	this is a classic implementation of the singleton design pattern
-	private static ModelRegister instance;
+	private static Register instance;
 	private static IDatabase db;
 	
-	private ModelRegister(){
+	private Register(){
 	}
 	
-	public static ModelRegister getInstance(){
+	public static Register getInstance(){
 		if(instance == null)
 		{	
-			instance = new ModelRegister();
+			instance = new Register();
 			db = new DatabaseServer("course_management");
 			db.initiate();
 		}
@@ -100,5 +101,12 @@ public class ModelRegister {
 		{
 			System.out.println(e.getMessage());
 		}
+	}
+	
+	//Read input file and add the new course
+	public void add_course_from_file(String file_name)
+	{
+		CourseOffering course = new OfferingFactory().generate_from_file(file_name);
+		registerCourse(course.getCourseID(),course);
 	}
 }

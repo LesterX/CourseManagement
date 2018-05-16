@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import database.IDatabase;
 import offerings.ICourseOffering;
-import registrar.ModelRegister;
+import registrar.Register;
 import systemUsers.InstructorModel;
 
 public class InstructorModelFactory implements ISystemUserModelFactory {
@@ -18,14 +18,14 @@ public class InstructorModelFactory implements ISystemUserModelFactory {
 		String line = br.readLine();
 //		Consume a line and parse it to populate the fields available in an Instructor instance.
 //		you may need to implement another such method having a different signature
-		if(!ModelRegister.getInstance().checkIfUserHasAlreadyBeenCreated(line.split("\t")[2])){
+		if(!Register.getInstance().checkIfUserHasAlreadyBeenCreated(line.split("\t")[2])){
 			newInstructorModel.setName(line.split("\t")[0]);
 			newInstructorModel.setSurname(line.split("\t")[1]);
 			newInstructorModel.setID(line.split("\t")[2]);
 			newInstructorModel.setIsTutorOf(new ArrayList<ICourseOffering>());
-			ModelRegister.getInstance().registerUser(newInstructorModel.getID(), newInstructorModel);
+			Register.getInstance().registerUser(newInstructorModel.getID(), newInstructorModel);
 		} 
-		newInstructorModel = (InstructorModel) ModelRegister.getInstance().getRegisteredUser(line.split("\t")[2]);
+		newInstructorModel = (InstructorModel) Register.getInstance().getRegisteredUser(line.split("\t")[2]);
 		newInstructorModel.getIsTutorOf().add(course);
 		return newInstructorModel;
 		}catch(IOException ioe){

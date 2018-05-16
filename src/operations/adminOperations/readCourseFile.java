@@ -3,7 +3,7 @@ package operations.adminOperations;
 import authenticatedUsers.LoggedInAuthenticatedUser;
 import offerings.CourseOffering;
 import offerings.OfferingFactory;
-import registrar.ModelRegister;
+import registrar.Register;
 import system.systemStatus;
 
 import java.io.BufferedReader;
@@ -43,7 +43,7 @@ public class readCourseFile
 
 			CourseOffering	courseOffering = factory.createCourseOffering(br);
 			
-			ModelRegister.getInstance().registerCourse(courseOffering.getCourseID(), courseOffering);
+			Register.getInstance().registerCourse(courseOffering.getCourseID(), courseOffering);
 			
 			br = new BufferedReader(new InputStreamReader(System.in));
 		}catch(FileNotFoundException e)

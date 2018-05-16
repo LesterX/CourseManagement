@@ -2,7 +2,7 @@ package operations.adminOperations;
 
 import systemUsers.*;
 import authenticatedUsers.LoggedInAuthenticatedUser;
-import registrar.ModelRegister;
+import registrar.Register;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
@@ -45,7 +45,7 @@ public class createUser
 				new_user.setName(first_name);
 				new_user.setSurname(surname);
 				new_user.setID(id);
-				ModelRegister.getInstance().registerUser(id, new_user);
+				Register.getInstance().registerUser(id, new_user);
 				break;
 			}
 			case "2":
@@ -54,7 +54,7 @@ public class createUser
 				new_user.setName(first_name);
 				new_user.setSurname(surname);
 				new_user.setID(id);
-				ModelRegister.getInstance().registerUser(id, new_user);
+				Register.getInstance().registerUser(id, new_user);
 				break;
 			}
 			case "3":
@@ -63,7 +63,7 @@ public class createUser
 				new_user.setName(first_name);
 				new_user.setSurname(surname);
 				new_user.setID(id);
-				ModelRegister.getInstance().registerUser(id, new_user);
+				Register.getInstance().registerUser(id, new_user);
 				break;
 			}
 			default:

@@ -6,7 +6,7 @@ import java.util.Iterator;
 
 import authenticatedUsers.LoggedInAuthenticatedUser;
 import offerings.CourseOffering;
-import registrar.ModelRegister;
+import registrar.Register;
 import system.systemStatus;
 
 public class PrintAllCourses 
@@ -27,7 +27,7 @@ public class PrintAllCourses
 		}
 		
 		//Read courses from the register
-		ArrayList<CourseOffering> courses = (ArrayList<CourseOffering>) ModelRegister.getInstance().getAllCourses();
+		ArrayList<CourseOffering> courses = (ArrayList<CourseOffering>) Register.getInstance().getAllCourses();
 		Iterator<CourseOffering> iter = courses.iterator();
 		while (iter.hasNext())
 		{
