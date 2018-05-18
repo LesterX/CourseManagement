@@ -109,7 +109,7 @@ public class OfferingFactory {
 			line = br.readLine();
 			List<StudentModel> allowed = new ArrayList<StudentModel>();
 			
-			while(!line.equals("Student Enrolled"))
+			while(!line.equals("Students Enrolled"))
 			{
 				StudentModel student = (StudentModel) Register.getInstance().getRegisteredUser(line);
 				allowed.add(student);
@@ -128,19 +128,22 @@ public class OfferingFactory {
 			
 			Map<EvaluationTypes, Weights> strategy = new HashMap<EvaluationTypes, Weights>();
 			line = br.readLine();
-			while (line.equals("FC")||line.equals("FA")||line.equals("PC")||line.equals("PA"))
-			{
+			while (line != null && (line.equals("FC")||line.equals("FA")||line.equals("PC")||line.equals("PA")))
+			{	
 				EvaluationTypes et = EvaluationTypes.fromString(line);
 				Weights w = new Weights();
+				line = br.readLine();
 				
-				while (!(line.equals("FC")||line.equals("FA")||line.equals("PC")||line.equals("PA")))
+				while (line != null && !(line.equals("FC")||line.equals("FA")||line.equals("PC")||line.equals("PA")))
 				{
 					String[] l = line.split(" ");
 					w.addToEvalStrategy(l[0],Double.parseDouble(l[1])/100);
+					line = br.readLine();
 				}
 				
 				strategy.put(et, w);
 			}
+			
 			
 			//Create new course
 			CourseOffering course = new CourseOffering();

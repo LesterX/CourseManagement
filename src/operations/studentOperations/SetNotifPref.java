@@ -1,7 +1,7 @@
 package operations.studentOperations;
 
-import authenticatedUsers.LoggedInAuthenticatedUser;
 import systemUsers.StudentModel;
+import systemUsers.SystemUserModel;
 import registrar.Register;
 import system.systemStatus;
 import customDatatypes.NotificationTypes;
@@ -15,7 +15,7 @@ public class SetNotifPref
 {
 	public SetNotifPref(){}
 	
-	public static void execute(LoggedInAuthenticatedUser user, NotificationTypes np)
+	public static void execute(SystemUserModel user, NotificationTypes np)
 	{
 		//If the system is closed or the user is not Student type, return
 		if (!systemStatus.instance().status())
@@ -23,7 +23,7 @@ public class SetNotifPref
 			System.out.println("System is closed");
 			return;
 		}
-		if (!user.getAuthenticationToken().getUserType().equals("Student"))
+		if (!user.get_type().equals("Student"))
 		{	
 			System.out.println("Only student can set notification preference");
 			return;
@@ -34,11 +34,11 @@ public class SetNotifPref
 		student.setNotificationType(np);
 	}
 	
-	public static void execute(LoggedInAuthenticatedUser user, String np_string)
+	public static void execute(SystemUserModel user, String np_string)
 	{
 		//If the system is closed or the user is not Student type, return
 		NotificationTypes np;
-		if (!user.getAuthenticationToken().getUserType().equals("Student"))
+		if (!user.get_type().equals("Student"))
 		{	
 			System.out.println("Only student can set notification preference");
 			return;
@@ -62,9 +62,9 @@ public class SetNotifPref
 		student.setNotificationType(np);
 	}
 	
-	public static void execute(LoggedInAuthenticatedUser user) throws NumberFormatException, IOException
+	public static void execute(SystemUserModel user) throws NumberFormatException, IOException
 	{
-		if (!user.getAuthenticationToken().getUserType().equals("Student"))
+		if (!user.get_type().equals("Student"))
 		{	
 			System.out.println("Only student can set notification preference");
 			return;

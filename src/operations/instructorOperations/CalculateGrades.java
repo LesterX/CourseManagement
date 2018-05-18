@@ -1,6 +1,5 @@
 package operations.instructorOperations;
 
-import authenticatedUsers.LoggedInAuthenticatedUser;
 import customDatatypes.Marks;
 import customDatatypes.Weights;
 import offerings.CourseOffering;
@@ -9,6 +8,7 @@ import registrar.Register;
 import system.systemStatus;
 import systemUsers.InstructorModel;
 import systemUsers.StudentModel;
+import systemUsers.SystemUserModel;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,7 +17,7 @@ import java.io.InputStreamReader;
 public class CalculateGrades {
     public CalculateGrades(){}
 
-    public static void execute(LoggedInAuthenticatedUser user) throws IOException
+    public static void execute(SystemUserModel user) throws IOException
     {
     	//If the system is closed or the user is not Instructor type, return
     	if (!systemStatus.instance().status())
@@ -25,7 +25,7 @@ public class CalculateGrades {
 			System.out.println("System is closed");
 			return;
 		}
-        if (user == null || !user.getAuthenticationToken().getUserType().equals("Instructor"))
+        if (user == null || !user.get_type().equals("Instructor"))
         {
             System.out.println(("Only instructors can calculate final grades"));
             return;
@@ -86,14 +86,14 @@ public class CalculateGrades {
         System.out.println("Final Grade: " + finalGrade);
     }
     
-    public static void execute(LoggedInAuthenticatedUser user, CourseOffering course, StudentModel target)
+    public static void execute(SystemUserModel user, CourseOffering course, StudentModel target)
     {
     	if (!systemStatus.instance().status())
 		{
 			System.out.println("System is closed");
 			return;
 		}
-        if (user == null || !user.getAuthenticationToken().getUserType().equals("Instructor"))
+        if (user == null || !user.get_type().equals("Instructor"))
         {
             System.out.println(("Only instructors can calculate final grades"));
             return;
@@ -140,10 +140,10 @@ public class CalculateGrades {
         System.out.println("Final Grade: " + finalGrade);
     }
     
-    public Double calculateFinalGrade(LoggedInAuthenticatedUser user, CourseOffering course, String ID)
+    public Double calculateFinalGrade(SystemUserModel user, CourseOffering course, String ID)
     {
 
-        if (user == null || !user.getAuthenticationToken().getUserType().equals("Instructor"))
+        if (user == null || !user.get_type().equals("Instructor"))
         {
             System.out.println(("Only instructors can calculate final grades"));
             return null;

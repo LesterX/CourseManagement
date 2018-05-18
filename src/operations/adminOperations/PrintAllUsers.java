@@ -5,14 +5,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import authenticatedUsers.LoggedInAuthenticatedUser;
 import registrar.Register;
 import system.systemStatus;
 import systemUsers.SystemUserModel;
 
 public class PrintAllUsers 
 {
-	public static void execute(LoggedInAuthenticatedUser user) throws IOException
+	public static void execute(SystemUserModel user) throws IOException
 	{
 		////If the system is closed or the user is not Admin type, return
 		if (!systemStatus.instance().status())

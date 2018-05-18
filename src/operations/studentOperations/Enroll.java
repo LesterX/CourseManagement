@@ -5,8 +5,7 @@ import system.systemStatus;
 import offerings.CourseOffering;
 import offerings.ICourseOffering;
 import systemUsers.StudentModel;
-import authenticatedUsers.LoggedInAuthenticatedUser;
-import authenticatedUsers.LoggedInStudent;
+import systemUsers.SystemUserModel;
 import customDatatypes.Marks;
 
 import java.io.BufferedReader;
@@ -20,7 +19,7 @@ public class Enroll
 {
 	public Enroll(){}
 	
-	public static void execute(LoggedInAuthenticatedUser user) throws IOException
+	public static void execute(SystemUserModel user) throws IOException
 	{
 		//If the system is closed or the user is not Student type, return
 		if (!systemStatus.instance().status())
@@ -28,15 +27,14 @@ public class Enroll
 			System.out.println("System is closed");
 			return;
 		}
-		if (user == null || !user.getAuthenticationToken().getUserType().equals("Student"))
+		if (user == null || !user.get_type().equals("Student"))
 		{	
 			System.out.println("Only student can enroll");
 			return;
 		}
 		else
 		{
-			user = (LoggedInStudent) user;
-			StudentModel student = (StudentModel) Register.getInstance().getRegisteredUser(user.getID());
+			StudentModel student = (StudentModel) user;
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 			
 			//Read course id from user input
@@ -82,17 +80,16 @@ public class Enroll
 	}
 	
 	// Overload the method with another parameter courseID
-	public void execute(LoggedInAuthenticatedUser user, String courseID) 
+	public void execute(SystemUserModel user, String courseID) 
 	{
-		if (!user.getAuthenticationToken().getUserType().equals("Student"))
+		if (!user.get_type().equals("Student"))
 		{	
 			System.out.println("Only student can enroll");
 			return;
 		}
 		else
 		{
-			user = (LoggedInStudent) user;
-			StudentModel student = (StudentModel) Register.getInstance().getRegisteredUser(user.getID());
+			StudentModel student = (StudentModel) user;
 			String course_id = courseID;
 			
 			CourseOffering course = Register.getInstance().getRegisteredCourse(course_id);
@@ -117,17 +114,16 @@ public class Enroll
 		}
 	}
 	
-	public void execute(LoggedInAuthenticatedUser user, CourseOffering course) 
+	public void execute(SystemUserModel user, CourseOffering course) 
 	{
-		if (!user.getAuthenticationToken().getUserType().equals("Student"))
+		if (!user.get_type().equals("Student"))
 		{	
 			System.out.println("Only student can enroll");
 			return;
 		}
 		else
 		{
-			user = (LoggedInStudent) user;
-			StudentModel student = (StudentModel) Register.getInstance().getRegisteredUser(user.getID());
+			StudentModel student = (StudentModel) user;
 			
 			System.out.println(student.getName());
 			

@@ -1,7 +1,7 @@
 package operations.studentOperations;
 
-import authenticatedUsers.LoggedInAuthenticatedUser;
 import systemUsers.StudentModel;
+import systemUsers.SystemUserModel;
 import registrar.Register;
 import system.systemStatus;
 import offerings.ICourseOffering;
@@ -9,7 +9,7 @@ import java.util.List;
 
 public class PrintCoursesEnrolled 
 {
-	public static void execute(LoggedInAuthenticatedUser user)
+	public static void execute(SystemUserModel user)
 	{
 		//If the system is closed or the user is not Student type, return
 		if (!systemStatus.instance().status())
@@ -17,7 +17,7 @@ public class PrintCoursesEnrolled
 			System.out.println("System is closed");
 			return;
 		}
-		if (!user.getAuthenticationToken().getUserType().equals("Student"))
+		if (!user.get_type().equals("Student"))
 		{	
 			System.out.println("Only student can print enrolled courses");
 			return;

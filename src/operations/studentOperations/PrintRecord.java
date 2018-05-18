@@ -3,7 +3,7 @@ package operations.studentOperations;
 import registrar.Register;
 import system.systemStatus;
 import systemUsers.StudentModel;
-import authenticatedUsers.LoggedInAuthenticatedUser;
+import systemUsers.SystemUserModel;
 import customDatatypes.Marks;
 import customDatatypes.Weights;
 
@@ -16,7 +16,7 @@ public class PrintRecord
 {
 	public PrintRecord(){}
 	
-	public static void execute(LoggedInAuthenticatedUser user) throws IOException
+	public static void execute(SystemUserModel user) throws IOException
 	{
 		//If the system is closed or the user is not Student type, return
 		if (!systemStatus.instance().status())
@@ -24,7 +24,7 @@ public class PrintRecord
 			System.out.println("System is closed");
 			return;
 		}
-		if (user == null || !user.getAuthenticationToken().getUserType().equals("Student"))
+		if (user == null || !user.get_type().equals("Student"))
 		{
 			System.out.println("Only student can print record");
 			return;
@@ -62,9 +62,9 @@ public class PrintRecord
         System.out.println("Final Grade up to now: " + finalGrade);
 	}
 	
-	public static void execute(LoggedInAuthenticatedUser user, CourseOffering course)
+	public static void execute(SystemUserModel user, CourseOffering course)
 	{
-		if (user == null || !user.getAuthenticationToken().getUserType().equals("Instructor"))
+		if (user == null || !user.get_type().equals("Instructor"))
 		{
 			throw new RuntimeException("Only instructors can print record");
 		}
@@ -85,9 +85,9 @@ public class PrintRecord
 
 	}
 	
-	public void execute(LoggedInAuthenticatedUser user, String course_id)
+	public void execute(SystemUserModel user, String course_id)
 	{
-		if (user == null || !user.getAuthenticationToken().getUserType().equals("Instructor"))
+		if (user == null || !user.get_type().equals("Instructor"))
 		{
 			throw new RuntimeException("Only instructors can print record");
 		}

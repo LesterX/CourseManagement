@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Map;
 
-import authenticatedUsers.LoggedInAuthenticatedUser;
 import customDatatypes.EvaluationTypes;
 import customDatatypes.Marks;
 import customDatatypes.Weights;
@@ -15,11 +14,12 @@ import registrar.Register;
 import system.systemStatus;
 import systemUsers.InstructorModel;
 import systemUsers.StudentModel;
+import systemUsers.SystemUserModel;
 
 public class ModifyMarks {
     public ModifyMarks(){}
 
-    public static void execute(LoggedInAuthenticatedUser user) throws IOException
+    public static void execute(SystemUserModel user) throws IOException
     {
     	//If the system is closed or the user is not Instructor type, return
     	if (!systemStatus.instance().status())
@@ -27,7 +27,7 @@ public class ModifyMarks {
 			System.out.println("System is closed");
 			return;
 		}
-        if (user == null || !user.getAuthenticationToken().getUserType().equals("Instructor"))
+        if (user == null || !user.get_type().equals("Instructor"))
         {
             System.out.println(("Only instructors can modify marks"));
             return;
@@ -120,9 +120,9 @@ public class ModifyMarks {
         return;
     }
     
-    public void execute(LoggedInAuthenticatedUser user, Marks mark, CourseOffering course, String studentID) throws RuntimeException{
+    public void execute(SystemUserModel user, Marks mark, CourseOffering course, String studentID) throws RuntimeException{
 
-        if (user == null || !user.getAuthenticationToken().getUserType().equals("Instructor"))
+        if (user == null || !user.get_type().equals("Instructor"))
         {
             throw new RuntimeException("Only instructors can modify marks");
         }

@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import authenticatedUsers.LoggedInAuthenticatedUser;
 import customDatatypes.Marks;
 import offerings.CourseOffering;
 import offerings.ICourseOffering;
@@ -12,12 +11,13 @@ import registrar.Register;
 import system.systemStatus;
 import systemUsers.InstructorModel;
 import systemUsers.StudentModel;
+import systemUsers.SystemUserModel;
 
 public class PrintMarks {
 
     public PrintMarks(){}
 
-    public static void execute(LoggedInAuthenticatedUser user) throws IOException
+    public static void execute(SystemUserModel user) throws IOException
     {
     	//If the system is closed or the user is not Instructor type, return
     	if (!systemStatus.instance().status())
@@ -25,7 +25,7 @@ public class PrintMarks {
 			System.out.println("System is closed");
 			return;
 		}
-        if (user == null || !user.getAuthenticationToken().getUserType().equals("Instructor"))
+        if (user == null || !user.get_type().equals("Instructor"))
         {
             System.out.println(("Only instructors can print marks"));
             return;
@@ -75,9 +75,9 @@ public class PrintMarks {
         }
     }
     
-    public static void execute(LoggedInAuthenticatedUser user, CourseOffering course) throws RuntimeException
+    public static void execute(SystemUserModel user, CourseOffering course) throws RuntimeException
     {
-        if (user == null || !user.getAuthenticationToken().getUserType().equals("Instructor"))
+        if (user == null || !user.get_type().equals("Instructor"))
         {
             throw new RuntimeException("Only instructors can modify marks");
         }
@@ -101,9 +101,9 @@ public class PrintMarks {
         }
     }
 
-    public void execute(LoggedInAuthenticatedUser user, String course_id)
+    public void execute(SystemUserModel user, String course_id)
     {
-        if (!user.getAuthenticationToken().getUserType().equals("Student"))
+        if (!user.get_type().equals("Student"))
         {
             throw new RuntimeException("course has not been found");
 

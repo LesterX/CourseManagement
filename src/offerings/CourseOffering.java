@@ -3,7 +3,6 @@ package offerings;
 import java.util.List;
 import java.util.Map;
 
-import authenticatedUsers.LoggedInInstructor;
 import customDatatypes.EvaluationTypes;
 import customDatatypes.Marks;
 import customDatatypes.Weights;

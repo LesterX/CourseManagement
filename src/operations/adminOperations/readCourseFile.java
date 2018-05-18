@@ -1,10 +1,10 @@
 package operations.adminOperations;
 
-import authenticatedUsers.LoggedInAuthenticatedUser;
 import offerings.CourseOffering;
 import offerings.OfferingFactory;
 import registrar.Register;
 import system.systemStatus;
+import systemUsers.SystemUserModel;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -15,7 +15,7 @@ import java.io.IOException;
 
 public class readCourseFile 
 {
-	public static void execute(LoggedInAuthenticatedUser user) throws IOException
+	public static void execute(SystemUserModel user) throws IOException
 	{
 		////If the system is closed or the user is not Admin type, return
 		if (!systemStatus.instance().status())

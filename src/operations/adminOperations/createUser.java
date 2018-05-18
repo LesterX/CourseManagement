@@ -1,7 +1,6 @@
 package operations.adminOperations;
 
 import systemUsers.*;
-import authenticatedUsers.LoggedInAuthenticatedUser;
 import registrar.Register;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -10,7 +9,7 @@ import system.*;
 
 public class createUser
 {
-	public static void execute(LoggedInAuthenticatedUser user) throws IOException
+	public static void execute(SystemUserModel user) throws IOException
 	{
 		//If the system is closed or the user is not Admin type, return
 		if (!systemStatus.instance().status())

@@ -34,13 +34,16 @@ public class Register {
 	
 	public static Register getInstance(){
 		if(instance == null)
-		{	
 			instance = new Register();
-			db = new DatabaseServer("course_management");
-			db.initiate();
-		}
+		
 		return instance;
 	}
+	
+	public static void set_DB(IDatabase database)
+	{
+		db = database;
+	}
+	
 //	the method names should be selfExplanatory
 	public boolean checkIfUserHasAlreadyBeenCreated(String ID){
 		return modelRegister.containsKey(ID);

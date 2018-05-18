@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
 
 import offerings.CourseOffering;
 import offerings.OfferingFactory;
@@ -26,8 +27,8 @@ import operations.studentOperations.*;
 import registrar.Register;
 import system.systemStatus;
 import systemUsers.AdminModel;
+import systemUsers.StudentModel;
 import systemUsers.SystemUserModel;
-import authenticatedUsers.LoggedInAuthenticatedUser;
 import database.IDatabase;
 import database.DatabaseServer;
 
@@ -223,11 +224,10 @@ public class Test {
 		IDatabase db = new DatabaseServer("course_management");
 		db.clear_tables();
 		db.initiate();
-		db.insert_user("0000", "0000", "admin", "admin", "Admin");
-		db.insert_user("0001", "0001", "yx1", "yx1", "Instructor");
-		db.insert_user("0002", "0002", "yx2", "yx2", "Student");
-		db.insert_course("3360", "Intermediate Accounting", 1);
-		db.add_tutor("0001", "3360");
-		db.add_student_allowed("0002", "3360");
+		
+		Register.set_DB(db);
+		Register.getInstance().add_user_from_file("users.txt");
+		Register.getInstance().add_course_from_file("course.txt");
+		
 	}
 }
